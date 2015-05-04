@@ -24,7 +24,7 @@
 \usepackage{mathptmx}
 \usepackage[scaled=0.9]{helvet}
 
-\usepackage{movie15}
+\usepackage{media9}
 \usepackage{grfext}\PrependGraphicsExtensions*{.png,.PNG}
 
 %\usepackage{graphicx}
@@ -129,7 +129,17 @@ May 4, 2015
 
 \begin{frame}{Better safe than sorry}
 \centering
-\includemovie[autoplay,startat=time:11,endat=time:23,repeat=3,volume=0]{4.5in}{2.53in}{figures/robot.mp4}
+%\includemovie[autoplay,startat=time:11,endat=time:23,repeat=3,volume=0]{4.5in}{2.53in}{figures/robot.mp4}
+\includemedia[
+width=5in,height=2.81in,
+addresource=figures/robot.mp4,
+activate=pageopen,
+flashvars={
+source=figures/robot.mp4
+&loop=true % loop video
+&scaleMode=letterbox % preserve aspect ratio while scaling the video
+}
+]{}{VPlayer.swf}
 \end{frame}
 
 \begin{frame}{Therapeutic spinal cord stimulation}
