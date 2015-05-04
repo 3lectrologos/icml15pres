@@ -1,0 +1,162 @@
+\begin{tikzpicture}
+
+\begin{axis}[
+name=plot1,
+anchor=above north west,
+tick label style={font=\small},
+label style={font=\small},
+title={{\small\algo}},
+width=\figurewidth,
+height=\figureheight/3,
+xmin=0.5, xmax=5.5,
+xtick={1, 2, 3, 4, 5},
+ymin=0, ymax=0.7,
+ytick=\empty,
+yticklabels={,,},
+ylabel near ticks,
+ylabel shift=-5pt,
+major tick length=2pt,
+axis lines*=left,
+legend cell align=left]
+
+\addplot [
+  ybar,
+  bar width=0.4cm,
+  cyan!50!black,
+  line width=1pt,
+  fill=cyan!75!black,
+  solid
+]
+coordinates{
+  %(3,5)(4,1215)(5,647)
+  (3,0.00268672)(4,0.65287479)(5,0.34766254)
+};
+
+\addplot [
+  magenta!50!darkgray,
+  line width=1pt,
+  dashed
+]
+coordinates{
+(3.52986,0)(3.52986,1)
+};
+
+\addplot [
+  mark=diamond*,
+  mark size=3,
+  only marks,
+  cyan!35!black
+]
+coordinates{
+(4.34386717,0)
+};
+
+\end{axis}
+
+\begin{axis}[
+name=plot2,
+at=(plot1.below south west),
+anchor=above north west,
+tick label style={font=\small},
+label style={font=\small},
+title={{\small\localucb}},
+width=\figurewidth,
+height=\figureheight/3,
+xmin=0.5, xmax=5.5,
+xtick={1, 2, 3, 4, 5},
+ymin=0, ymax=0.7,
+ytick=\empty,
+yticklabels={,,},
+ylabel near ticks,
+ylabel shift=-5pt,
+major tick length=2pt,
+axis lines*=left,
+legend cell align=left]
+
+\addplot [
+  ybar,
+  bar width=0.4cm,
+  lime!50!black,
+  line width=1pt,
+  fill=lime!70!black,
+  solid
+]
+coordinates{
+(3,0.001654715940430226)(4,0.6574738003309432)(5,0.3408714837286266)
+};
+
+\addplot [
+  magenta!50!darkgray,
+  line width=1pt,
+  dashed
+]
+coordinates{
+(3.52986,0)(3.52986,1)
+};
+
+\addplot [
+  mark=diamond*,
+  mark size=3,
+  only marks,
+  lime!35!black
+]
+coordinates{
+(4.33921677,0)
+};
+
+\end{axis}
+
+\begin{axis}[
+name=plot3,
+at=(plot2.below south west),
+anchor=above north west,
+tick label style={font=\small},
+label style={font=\small},
+title={{\small\gpucb}},
+width=\figurewidth,
+height=\figureheight/3,
+xmin=0.5, xmax=5.5,
+xtick={1, 2, 3, 4, 5},
+ymin=0, ymax=0.7,
+ytick=\empty,
+yticklabels={,,},
+ylabel near ticks,
+ylabel shift=-5pt,
+major tick length=2pt,
+axis lines*=left,
+legend cell align=left]
+
+\addplot [
+  ybar,
+  bar width=0.4cm,
+  orange!60!black,
+  line width=1pt,
+  fill=orange!85!black,
+  solid
+]
+coordinates{
+(1,0.03267093297406534)(2,0.06006511732345347)(3,0.21758167733243516)(4,0.37375098237341414)(5,0.31593128999663184)
+};
+
+\addplot [
+  magenta!50!darkgray,
+  line width=1pt,
+  dashed
+]
+coordinates{
+(3.52986,0)(3.52986,1)
+};
+
+\addplot [
+  mark=diamond*,
+  mark size=3,
+  only marks,
+  orange!35!black
+]
+coordinates{
+(3.8802,0)
+};
+
+\end{axis}
+
+\end{tikzpicture}

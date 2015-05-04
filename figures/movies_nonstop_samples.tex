@@ -1,0 +1,73 @@
+\begin{tikzpicture}
+
+\begin{axis}[
+title={{\small non-stop}},
+tick label style={font=\small},
+label style={font=\small},
+width=\figurewidth,
+height=\figureheight,
+xmin=-0.5, xmax=2.5,
+xtick={0, 1, 2},
+xticklabels={{\scriptsize\algo}, {\scriptsize\localucb}, {\scriptsize\gpucb}},
+%xticklabel style={yshift=-2pt},
+ymin=0, ymax=100,
+ytick={0, 25, 50, 75, 100},
+major tick length=2pt,
+axis lines*=left]
+
+\addplot [
+  ybar,
+  bar width=0.4cm,
+  cyan!50!black,
+  line width=1pt,
+  fill=cyan!75!black,
+  solid
+]
+coordinates{
+  (0,92.660013)
+};
+
+\addplot [
+  ybar,
+  bar width=0.4cm,
+  lime!50!black,
+  line width=1pt,
+  fill=lime!70!black,
+  solid
+]
+coordinates{
+  (1,88.350951)
+};
+
+\addplot [
+  ybar,
+  bar width=0.4cm,
+  orange!60!black,
+  line width=1pt,
+  fill=orange!85!black,
+  solid
+]
+coordinates{
+%  (2,411.668956)
+  (2,100)
+};
+
+\addplot [
+  only marks,
+  mark=empty,
+  darkgray,
+  solid,
+  error bars/.cd,
+  error bar style={line width=1pt},
+  y dir=both,
+  y explicit
+]
+coordinates{
+  (0,92.660013) +- (2*2.280689,2*2.280689)
+  (1,88.350951) +- (2*4.285279,2*4.285279)
+  (2,100) +- (2*0, 2*0)
+};
+
+\end{axis}
+
+\end{tikzpicture}

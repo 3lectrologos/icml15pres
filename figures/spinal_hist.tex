@@ -1,0 +1,175 @@
+\begin{tikzpicture}
+
+\begin{axis}[
+name=plot1,
+anchor=above north west,
+tick label style={font=\small},
+label style={font=\small},
+title={\small\algo},
+width=\figurewidth,
+height=\figureheight/3,
+xmin=0.33, xmax=1.02,
+xtick={0, 0.2, 0.4, 0.6, 0.8, 1},
+ymin=0, ymax=0.21,
+ytick=\empty,
+yticklabels={,,},
+ylabel near ticks,
+ylabel shift=-5pt,
+major tick length=2pt,
+axis lines*=left]
+
+%% \addplot[
+%%   color=cyan!75!black,
+%%   solid,
+%%   line width=1.5pt,
+%%   samples=30,domain=0:6
+%% ]
+\addplot[
+  ybar,
+  bar width=0.15cm,
+  cyan!50!black,
+  line width=1pt,
+  fill=cyan!75!black,
+  solid
+]
+coordinates{
+(0.56, 0.05714285714285714)(0.6, 0.2)(0.64, 0.05714285714285714)(0.6799999999999999, 0.05714285714285714)(0.72, 0.17142857142857143)(0.76, 0.08571428571428572)(0.8, 0.11428571428571428)(0.84, 0.02857142857142857)(0.88, 0.0)(0.92, 0.05714285714285714)(0.96, 0.14285714285714285)(1.0, 0.02857142857142857)
+};
+
+\addplot [
+  magenta!50!darkgray,
+  line width=1pt,
+  dashed
+]
+coordinates{
+(0.52512774,0)(0.52512774,60)
+};
+
+\addplot [
+  mark=diamond*,
+  mark size=3,
+  only marks,
+  cyan!35!black
+]
+coordinates{
+(0.75177565,0)
+};
+
+\end{axis}
+
+\begin{axis}[
+name=plot2,
+at=(plot1.below south west),
+anchor=above north west,
+tick label style={font=\small},
+label style={font=\small},
+title={\small\localucb},
+width=\figurewidth,
+height=\figureheight/3,
+xmin=0.33, xmax=1.02,
+xtick={0, 0.2, 0.4, 0.6, 0.8, 1},
+ymin=0, ymax=0.21,
+ytick=\empty,
+yticklabels={,,},
+ylabel near ticks,
+ylabel shift=-5pt,
+major tick length=2pt,
+axis lines*=left]
+
+%% \addplot[
+%%   color=lime!70!black,
+%%   solid,
+%%   line width=1.5pt,
+%%   samples=30,domain=0:6
+%% ]
+\addplot[
+  ybar,
+  bar width=0.15cm,
+  lime!50!black,
+  line width=1pt,
+  fill=lime!70!black,
+  solid
+]
+coordinates{
+(0.56, 0.034482758620689655)(0.6, 0.13793103448275862)(0.64, 0.13793103448275862)(0.6799999999999999, 0.10344827586206896)(0.72, 0.13793103448275862)(0.76, 0.06896551724137931)(0.8, 0.10344827586206896)(0.84, 0.0)(0.88, 0.06896551724137931)(0.92, 0.10344827586206896)(0.96, 0.10344827586206896)(1.0, 0.0)
+};
+
+\addplot [
+  magenta!50!darkgray,
+  line width=1pt,
+  dashed
+]
+coordinates{
+(0.52512774,0)(0.52512774,1)
+};
+
+\addplot [
+  mark=diamond*,
+  mark size=3,
+  only marks,
+  lime!35!black
+]
+coordinates{
+(0.75088457,0)
+};
+
+\end{axis}
+
+\begin{axis}[
+name=plot3,
+at=(plot2.below south west),
+anchor=above north west,
+tick label style={font=\footnotesize},
+label style={font=\footnotesize},
+title={\footnotesize\gpucb},
+width=\figurewidth,
+height=\figureheight/3,
+xmin=0.33, xmax=1.02,
+xtick={0, 0.2, 0.4, 0.6, 0.8, 1},
+ymin=0, ymax=0.21,
+ytick=\empty,
+yticklabels={,,},
+ylabel near ticks,
+ylabel shift=-5pt,
+major tick length=2pt,
+axis lines*=left]
+
+%% \addplot[
+%%   color=orange!85!black,
+%%   solid,
+%%   line width=1.5pt,
+%% ]
+\addplot[
+  ybar,
+  bar width=0.15cm,
+  orange!60!black,
+  line width=1pt,
+  fill=orange!85!black,
+  solid
+]
+coordinates{
+(0.36, 0.017857142857142856)(0.4, 0.09821428571428571)(0.44, 0.05357142857142857)(0.48, 0.08035714285714286)(0.52, 0.0625)(0.56, 0.10714285714285714)(0.6, 0.044642857142857144)(0.64, 0.044642857142857144)(0.6799999999999999, 0.05357142857142857)(0.72, 0.03571428571428571)(0.76, 0.05357142857142857)(0.8, 0.05357142857142857)(0.84, 0.044642857142857144)(0.88, 0.03571428571428571)(0.92, 0.15178571428571427)(0.96, 0.044642857142857144)(1.0, 0.017857142857142856)
+};
+
+\addplot [
+  magenta!50!darkgray,
+  line width=1pt,
+  dashed
+]
+coordinates{
+(0.52512774,0)(0.52512774,0.7)
+};
+
+\addplot [
+  mark=diamond*,
+  mark size=3,
+  only marks,
+  orange!35!black
+]
+coordinates{
+(0.66992681,0)
+};
+
+\end{axis}
+
+\end{tikzpicture}
