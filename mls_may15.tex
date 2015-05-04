@@ -168,6 +168,7 @@ remain ``safe" throughout the process.
 
 \begin{frame}{Problem statement}
 
+\uncover<1->{
 {\large Setup}
 \begin{itemize}
 \item Finite set $D$
@@ -176,7 +177,10 @@ remain ``safe" throughout the process.
 \item Seed set $S_0$ of safe decisions ($\forall x \in S_0,\ f(x) \geq h$)
 \end{itemize}
 \vspace{1em}
-{\large Sequential sampling procedure}
+}
+
+\uncover<2->{
+{\large Sequential sampling}
 \begin{itemize}
 \item For $t = 1, 2, \ldots$
   \begin{itemize}
@@ -185,26 +189,35 @@ remain ``safe" throughout the process.
   \end{itemize}
 \end{itemize}
 \vspace{1em}
+}
+
+\uncover<3->{
 {\large Goal}
 \begin{itemize}
 \item Locate an optimum $x^* \in \displaystyle\argmax_{x\in D}\left(f(x)\right)$
 \item Remain safe: $\forall t \geq 1,\ f(x_t) \geq h$
 \end{itemize}
+}
 \end{frame}
 
 \begin{frame}{Certifying safety}
 
+\uncover<1->{
 {\large Assumptions}
 \begin{itemize}
 \item $d$ is a metric on $D$
 \item $f$ is $L$-Lipschitz continuous w.r.t. $d$
 \end{itemize}
 \vspace{2em}
+}
+
+\uncover<2->{
 {\large Safety certificate}\\[0.5em]
 If we know $f(x)$ for some (safe) $x$, then we can certify as safe any $x'$, such that
 \begin{align*}
 f(x) - L\,d(x, x') \geq h
 \end{align*}
+}
 \end{frame}
 
 \begin{frame}{Certifying safety}
@@ -223,35 +236,37 @@ f(x) - L\,d(x, x') \geq h
 
 \begin{frame}{Reachability}
 
+\uncover<1->{
 {\large One-step reachability operator}
 \begin{align*}
 \Reps(S) := S \cup \left\{x' \in D \mid \exists x \in S,\ f(x) - \epsilon - L\,d(x, x') \geq h\right\}
 \end{align*}
 \vspace{1em}
+}
 
+\uncover<2->{
 {\large $n$-step reachability operator}
 \begin{align*}
 \Reps^n(S) := \underbrace{\Reps(\Reps\ldots(\Reps}_{n\ \mathrm{times}}(S))\ldots)
 \end{align*}
 \vspace{1em}
+}
 
+\uncover<3->{
 {\large $\epsilon$-reachable set from $S$}
 \begin{align*}
 \Rbeps(S) := \displaystyle\lim_{n \to \infty} \Reps^n(S)
 \end{align*}
-\end{frame}
-
-\begin{frame}{Reachability}
-Figure?
+}
 \end{frame}
 
 \begin{frame}{Reconsidering optimization}
 \begin{itemize}
-\item No algorithm that is $\epsilon$-uncertain about $f$ can certify any $x \in D \setminus \Rbeps(S_0)$ as safe
+\item<1-> No algorithm that is $\epsilon$-uncertain about $f$ can certify any $x \in D \setminus \Rbeps(S_0)$ as safe
 \vspace{2em}
-\item Goal of finding $f^* = \max_{x \in D}\left(f(x)\right)$ is unrealistic
+\item<2-> Goal of finding $f^* = \max_{x \in D}\left(f(x)\right)$ is unrealistic
 \vspace{2em}
-\item Instead, go for the $\epsilon$-reachable maximum
+\item<3-> Instead, aim for the $\epsilon$-reachable maximum
   \begin{align*}
     f_{\epsilon}^* = \max_{x \in \Rbeps(S_0)}\left(f(x)\right)
   \end{align*}
@@ -260,11 +275,11 @@ Figure?
 
 \begin{frame}{Estimating $f$}
 \begin{itemize}
-\item To certify safety, we need to estimate $f$
+\item<1-> To certify safety, we need to estimate $f$
 \vspace{2em}
-\item Additional assumption: $f$ has bounded norm in the RKHS associated with some kernel $k$ defined on $D$
+\item<2-> Additional assumption: $f$ has bounded norm in the RKHS associated with some kernel $k$ defined on $D$
 \vspace{2em}
-\item Then, we can model $f$ as a Gaussian process and obtain confidence estimates
+\item<3-> Then, we can model $f$ as a Gaussian process and obtain confidence estimates
 \end{itemize}
 \end{frame}
 
@@ -279,26 +294,34 @@ Width of confidence interval $w_t(x) := u_t(x) - \ell_t(x)$
 
 \begin{frame}{Algorithm components}
 
+\uncover<1->{
 {\large Safe set}
 \begin{align*}
 S_t := \bigcup_{x \in S_{t-1}}\bigsetdef{x' \in D}{\ell_t(x) - L\,d(x, x') \geq h}
 \end{align*}
 \vspace{0.5em}
+}
 
+\uncover<2->{
 {\large Potential maximizers}
 \begin{align*}
 M_t := \bigsetdef{x\in S_t}{u_t(x)\geq \max_{x'\in S_t} \ell_t(x')}
 \end{align*}
 \vspace{0.5em}
+}
 
+\uncover<3->{
 {\large Potential expanders}
 \begin{align*}
 G_t := \bigsetdef{x\in S_t}{g_t(x)>0}
 \end{align*}
+}
+\uncover<4->{
 Function $g_t(x)$ quantifies the best-case ``certification potential" of $x$:
 \begin{align*}
 g_t(x) := \Big|\bigsetdef{x' \in D \setminus S_t}{u_t(x) - L\,d(x, x') \geq h}\Big|
 \end{align*}
+}
 \end{frame}
 
 \definecolor{c1}{RGB}{255,255,255}
@@ -314,28 +337,24 @@ g_t(x) := \Big|\bigsetdef{x' \in D \setminus S_t}{u_t(x) - L\,d(x, x') \geq h}\B
   \REQUIRE sample set $D$, kernel $k$, Lipschitz constant $L$, seed set $S_0$, safe threshold $h$
   %\ENSURE predicted super- and sublevel sets
   \STATE
-  \uncover<2->{
+  \uncover<1->{
   \CFOR{cwhite}{$t = 1,2,\ldots$}
   }
-    \uncover<3->{
+    \uncover<2->{
       \CLET{cwhite}{$S_t$}{$\bigcup_{x \in S_{t-1}}\bigsetdef{x' \in D}{\ell_t(x) - L\,d(x, x') \geq h}$}
       \CLET{cwhite}{$M_t$}{$\bigsetdef{x\in S_t}{u_t(x)\geq \max_{x'\in S_t} \ell_t(x')}$}
       \CLET{cwhite}{$G_t$}{$\bigsetdef{x\in S_t}{g_t(x)>0}$}
     }
-    \uncover<4->{
+    \uncover<3->{
       \CLET{cwhite}{$\*x_t$}{$\argmax_{x \in G_t \cup M_t}(w_t(x))$}
       \CLET{cwhite}{$y_t$}{$f(x_t) + n_t$}
     }
-    \uncover<5->{
+    \uncover<4->{
       \CSTATE{cwhite}Update GP estimates
     }
-  \uncover<2->{
+  \uncover<1->{
     \CENDFOR{cwhite}
   }
-  %\uncover<2->{
-  %\CLET{c5}{$\hat{H}$}{$H_{t-1}$} \label{lin:ret1}
-  %\CLET{c5}{$\hat{L}$}{$L_{t-1}$} \label{lin:ret2}
-  %}
 \end{algorithmic}
 \end{frame}
 
@@ -368,40 +387,44 @@ g_t(x) := \Big|\bigsetdef{x' \in D \setminus S_t}{u_t(x) - L\,d(x, x') \geq h}\B
 %\item $f$ is \LLC
 %\item $S_0 \neq \varnothing$, and $f(x)\geq h$, for all $x\in S_0$ 
 %\end{itemize}
+\uncover<1->{
 For any $\epsilon > 0$, and any $\delta \in (0, 1)$, choose the scaling factor $\beta_t$ appropriately (as in GP-UCB), and define
+}
 \begin{itemize}
-\item $\hat{x}_t := \argmax_{x \in S_t} \ell_t(x)$,
-\item $t^*$ to be smallest integer satisfying
+\item<2-> $\hat{x}_t := \argmax_{x \in S_t} \ell_t(x)$,
+\item<3-> $t^*$ to be smallest integer satisfying
   \begin{align*}
   \frac{t^*}{\beta_{t^*} \gamma_{t^*}} \geq \frac{C_1 \left(|\Rbo(S_0)| + 1\right)}{\epsilon^2}.
   \end{align*}
 \end{itemize}
+\uncover<4->{
 Then, the following jointly hold with probability at least $1-\delta$:
 \begin{itemize}
-  \item $\forall t \geq 1$, $f(\*x_t) \geq h$,
-  \item $\forall t \geq t^*$, $f(\xb_t) \geq f^*_{\epsilon} - \epsilon$.
+  \item<4-> $\forall t \geq 1$, $f(\*x_t) \geq h$,
+  \item<5-> $\forall t \geq t^*$, $f(\xb_t) \geq f^*_{\epsilon} - \epsilon$.
 \end{itemize}
+}
 \end{frame}
 
 \begin{frame}{Proof outline}
 \begin{itemize}
-\item RKHS assumption and the choice of $\beta_t$ ensure valid confidence intervals w.h.p.
+\item<1-> RKHS assumption and the choice of $\beta_t$ ensure valid confidence intervals w.h.p.
 \vspace{1em}
-\item A run of the algorithm can be split into stages, during each of which,
+\item<2-> A run of the algorithm can be split into stages, during each of which,
   \begin{itemize}
     \item $S_t$ remains constant
     \item $w_t(x_t)$ is monotonically decreasing
   \end{itemize}
 \vspace{1em}
-\item The condition $\max_{x\in G_t} w(x) < \epsilon$ implies either of the following:
+\item<3-> The condition $\max_{x\in G_t} w(x) < \epsilon$ implies either of the following:
   \begin{itemize}
     \item $S_t$ will increase at the next iteration $\rightarrow$ new stage
     \item $S_t \supseteq \Rbeps(S_0)$
   \end{itemize}
 \vspace{1em}
-\item The condition $\max_{x\in M_t} w(x) < \epsilon$ implies that $f(\xb_t)$ is $\epsilon$-optimal within $S_t$
+\item<4-> The condition $\max_{x\in M_t} w(x) < \epsilon$ implies that $f(\xb_t)$ is $\epsilon$-optimal within $S_t$
 \vspace{1em}
-\item Safety is guaranteed by Lipschitz continuity and the way we update $S_t$
+\item<5-> Safety is guaranteed by Lipschitz continuity and the way we update $S_t$
 \end{itemize}
 \end{frame}
 
@@ -420,14 +443,31 @@ Then, the following jointly hold with probability at least $1-\delta$:
 \end{frame}
 
 \begin{frame}{Experiment 2: Movie recommendations}
+\begin{itemize}
+\item<1-> MovieLens-100k data set containing 1682 movies and 943 users
+\vspace{2em}
+\item<2-> Perform matrix factorization on training set and fit GP prior on user features (linear kernel)
+\vspace{2em}
+\item<3-> For each user in the test set,
+\begin{itemize}
+  \item Choose a random highly-rated movie as seed
+  \item Restrict sampling to movies that the user actually rated
+  \item Provide actual rating as feedback to the algorithm
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Experiment 2: Movie recommendations}
 \begin{columns}[c]
 \column{0.55\textwidth}
-\centering
+\begin{center}
 \setlength\figurewidth{2.5in}
 \setlength\figureheight{1.7in}
 \input{figures/movies_stop_samples.tex}\\
 \input{figures/movies_nonstop_samples.tex}
+\end{center}
 \column{0.45\textwidth}
+\centering
 \setlength\figurewidth{2.5in}
 \setlength\figureheight{3.6in}
 \input{figures/movies_hist.tex}
@@ -437,12 +477,32 @@ Then, the following jointly hold with probability at least $1-\delta$:
 \begin{frame}{Experiment 3: Spinal cord therapy}
 \begin{columns}[c]
 \column{0.55\textwidth}
-\centering
+\begin{center}
+\includegraphics[width=2.5in]{figures/config1.png}
+\end{center}
+\column{0.45\textwidth}
+\begin{center}
+\includegraphics[width=2in]{figures/config2.png}
+\begin{itemize}
+\item Electrode configurations are represented by points in $\mathbb{R}^4$
+\vspace{1em}
+\item Data from 351 stimulations (126 distinct configurations)
+\end{itemize}
+\end{center}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Experiment 3: Spinal cord therapy}
+\begin{columns}[c]
+\column{0.55\textwidth}
+\begin{center}
 \setlength\figurewidth{2.5in}
 \setlength\figureheight{1.7in}
 \input{figures/spinal_stop_samples.tex}\\
 \input{figures/spinal_nonstop_samples.tex}
+\end{center}
 \column{0.45\textwidth}
+\centering
 \setlength\figurewidth{2.5in}
 \setlength\figureheight{3.6in}
 \input{figures/spinal_hist.tex}
@@ -451,13 +511,13 @@ Then, the following jointly hold with probability at least $1-\delta$:
 
 \begin{frame}{Summary}
 \begin{itemize}
-\item We formulated the problem of safe optimization using the concept of reachability
+\item<1-> We formulated the problem of safe optimization using the concept of reachability
 \vspace{2em}
-\item We proposed a simple algorithm with theoretical guarantees
+\item<2-> We proposed a simple algorithm with theoretical guarantees
 \vspace{2em}
-\item Better sample complexity bound under additional assumptions?
+\item<3-> Better sample complexity bound under additional assumptions?
 \vspace{2em}
-\item More efficient sampling heuristics?
+\item<4-> More efficient sampling heuristics?
 \end{itemize}
 \end{frame}
 
