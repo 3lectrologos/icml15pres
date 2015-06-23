@@ -35,21 +35,8 @@
 \usepackage{xspace}
 \usepackage{makecell}
 \usepackage{msthpres}
-\newcommand{\gpbucb}{\textsf{GP-BUCB}\xspace}
-\newcommand{\acl}{\textsf{LSE}\xspace}
-\newcommand{\fullacl}{Level Set Estimation\xspace}
-\newcommand{\iacl}{\textsf{LSE\textsubscript{imp}}\xspace}
-\newcommand{\bacl}{\textsf{LSE\textsubscript{batch}}\xspace}
-\newcommand{\ibacl}{\textsf{LSE\textsubscript{imp-batch}}\xspace}
-\newcommand{\str}{\textsf{STR}\xspace}
-\newcommand{\istr}{\textsf{STR\textsubscript{imp}}\xspace}
-\newcommand{\bstr}{\textsf{STR\textsubscript{batch}}\xspace}
-\newcommand{\rstr}{\textsf{STR\textsubscript{rank}}\xspace}
-\newcommand{\var}{\textsf{VAR}\xspace}
+\usepackage{pdfpages} 
 %%
-
-%\usepackage{mathtools}
-%\newcommand{\defeq}{\vcentcolon=}
 
 \usepackage{tikz}
 \usetikzlibrary{arrows,positioning,shapes,fit}
@@ -85,63 +72,46 @@
 \newcommand{\localucb}{{\sc\textsf{Local-UCB}}\xspace}
 
 \title[Safe Gaussian Process Optimization]
-{Safe Gaussian Process Optimization}
+{Safe Exploration for Optimization with Gaussian Processes}
 
 \author[Alkis Gotovos]{
+\vspace{1in}
 \normalsize
-Yanan Sui\inst{1}\and
-Alkis Gotovos\inst{2}\and
-Andreas Krause\inst{2}
-}
-
-\institute[]{
-\inst{1} Caltech\and
-\inst{2} ETH Zurich
+\parbox{1in}{Yanan Sui\\{\footnotesize Caltech}}\and
+\parbox{1in}{Alkis Gotovos\\{\footnotesize ETH Zurich}}\and
+\parbox{1in}{Joel W. Burdick\\{\footnotesize Caltech}}\and
+\parbox{1in}{Andreas Krause\\{\footnotesize ETH Zurich}}
 }
 
 \date[May 4, 2015]{
 \begin{center}
-{\footnotesize
-ML Seminar\\
-May 4, 2015
+{\normalsize
+ICML '15
 }
 \end{center}
 }
 
-% If you wish to uncover everything in a step-wise fashion, uncomment
-% the following command: 
-%\beamerdefaultoverlayspecification{<+->}
-
-
 \begin{document}
 
-\begin{frame}
-  \titlepage
-\end{frame}
-
-%\begin{frame}{Outline}
-%  \tableofcontents
-%  % You might wish to add the option [pausesections]
-%\end{frame}
-
+\setbeamercolor{background canvas}{bg=}
+\includepdf[pages={1}]{title.pdf}
 
 \section{Motivation}
 
 \begin{frame}{Better safe than sorry}
-%\includemovie[autoplay,startat=time:11,endat=time:23,repeat=3,volume=0]{4.5in}{2.53in}{figures/robot.mp4}
-\begin{center}
-\includemedia[
-width=4.7in,height=2.655in,
-addresource=figures/robot.mp4,
-activate=pageopen,
-flashvars={
-autoPlay=true
-&source=figures/robot.mp4
-&loop=true % loop video
-&scaleMode=letterbox % preserve aspect ratio while scaling the video
-}
-]{}{VPlayer.swf}
-\end{center}
+%\begin{center}
+%\includemedia[
+%width=4.7in,height=2.655in,
+%addresource=figures/robot.mp4,
+%activate=pageopen,
+%flashvars={
+%autoPlay=true
+%&source=figures/robot.mp4
+%&loop=true % loop video
+%&scaleMode=letterbox % preserve aspect ratio while scaling the video
+%}
+%]{}{VPlayer.swf}
+%\end{center}
 \end{frame}
 
 \begin{frame}{Therapeutic spinal cord stimulation}
@@ -165,7 +135,7 @@ autoPlay=true
 \includegraphics[width=4.5in]{figures/netflix.png}
 \vspace{2em}
 \begin{itemize}
-\item Need to explore the movie space to discover each user's taste profile
+\item Explore the movie space to discover each user's taste profile
 \item Bad recommendations may cause user dissatisfaction
 \end{itemize}
 \end{frame}

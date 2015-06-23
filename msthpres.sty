@@ -2,6 +2,45 @@
 \ProvidesPackage{msthpres}[2013/01/28 v0.1 M.Sc. Thesis presentation style]
 
 % -----------------------------------------------------------------------------
+% Beamer theme changes
+% -----------------------------------------------------------------------------
+\RequirePackage[10pt]{moresize}
+
+\definecolor{cframetitle}{HTML}{567714}
+\definecolor{ctitle}{HTML}{567714}
+\definecolor{crest}{HTML}{7B9F35}
+\setbeamercolor{frametitlecolor}{fg=white,bg=cframetitle}
+\setbeamercolor{footlinecolortitle}{fg=white,bg=ctitle}
+\setbeamercolor{footlinecolorrest}{fg=white,bg=crest}
+\setbeamerfont{frametitle}{size=\large}
+\setbeamerfont{footline}{size=\ssmall}
+%\renewcommand\footnoterule{{\color{cdark}\hrule height 0.5pt width \paperwidth}}
+
+\makeatother
+\setbeamertemplate{frametitle}{%
+	\nointerlineskip
+	\begin{beamercolorbox}[wd=\paperwidth,ht=2.5ex,dp=1.25ex,leftskip=0.6cm,rightskip=0.6cm]{frametitlecolor}%
+		\insertframetitle\strut
+	\end{beamercolorbox}%
+}
+	\makeatletter
+
+\makeatother
+\setbeamertemplate{footline}
+{%
+	\leavevmode%
+	\hbox{\begin{beamercolorbox}[wd=.75\paperwidth,ht=3ex,dp=1.5ex,leftskip=0.6cm,rightskip=0.6cm]{footlinecolortitle}%
+		\inserttitle
+		\end{beamercolorbox}%
+		\begin{beamercolorbox}[wd=.25\paperwidth,ht=3ex,dp=1.5ex,leftskip=0.6cm,rightskip=0.6cm plus1fil]{footlinecolorrest}%
+			\insertshortauthor\hfill\insertpagenumber
+		\end{beamercolorbox}}%
+		\vskip0pt%
+	}
+	\makeatletter
+	\setbeamertemplate{navigation symbols}{}
+
+% -----------------------------------------------------------------------------
 % Math
 % -----------------------------------------------------------------------------
 
