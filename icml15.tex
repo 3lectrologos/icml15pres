@@ -1,4 +1,4 @@
-\documentclass[10pt,mathserif]{beamer}
+\documentclass[xetex,10pt,mathserif]{beamer}
 %\documentclass[10pt,mathserif,handout]{beamer}
 
 \usetheme{Boadilla}
@@ -14,22 +14,16 @@
 \setbeamertemplate{enumerate subsubitem}{\insertenumlabel.\insertsubenumlabel.\insertsubsubenumlabel}
 \setbeamertemplate{enumerate mini template}{\insertenumlabel}
 
-\definecolor{locol}{rgb}{0.26, 0.45, 0.65}
-
-%\usepackage{fontspec}
-%\setmainfont[Mapping=tex-text]{Linux Libertine}
-%\setsansfont{Myriad Pro}
-%\setmonofont[Scale=0.9]{Consolas}
-\usepackage[english]{babel}
-\usepackage{mathptmx}
-\usepackage[scaled=0.9]{helvet}
+\usefonttheme{professionalfonts}
+\usepackage{fontspec}
+\usepackage{xunicode}
+\usepackage{xltxtra}
+\setmainfont{Myriad Pro}
+\setsansfont[Scale=0.95]{Myriad Pro}
 
 \usepackage{media9}
 \usepackage{grfext}\PrependGraphicsExtensions*{.png,.PNG}
 
-%\usepackage{graphicx}
-%\usepackage{epstopdf}
-%\epstopdfDeclareGraphicsRule{.pdf}{png}{.png}{convert -density 200 #1 \OutputFile}
 
 %%
 \usepackage{xspace}
@@ -60,7 +54,6 @@
 \newcommand{\Ro}{R_{0}}
 \newcommand{\Rbo}{\bar{R}_{0}}
 \newcommand{\xb}{\hat{\*x}}
-\newcommand{\T}{T_t}
 \newcommand{\smid}{\ \middle\vert\ }
 \newcommand{\bigsmid}{\ \big\vert\ }
 \newcommand{\setdef}[2]{\left\{ #1 \smid #2 \right\}}
