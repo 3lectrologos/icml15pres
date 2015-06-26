@@ -38,7 +38,18 @@
 		\vskip0pt%
 	}
 	\makeatletter
-	\setbeamertemplate{navigation symbols}{}
+
+\setbeamertemplate{navigation symbols}{}
+
+\setbeamertemplate{section in toc}{$\circ$ \inserttocsection}
+\setbeamertemplate{subsection in toc}{\hspace{1em}{\footnotesize$\circ$} \inserttocsubsection}
+\setbeamertemplate{itemize item}{\scriptsize\raise1.25pt\hbox{\donotcoloroutermaths\color{cframetitle}$\blacktriangleright$}}
+\setbeamertemplate{itemize subitem}{\tiny\raise1.5pt\hbox{\donotcoloroutermaths\color{crest}$\blacktriangleright$}}
+\setbeamertemplate{itemize subsubitem}{\tiny\raise1.5pt\hbox{\donotcoloroutermaths\color{crest}$\blacktriangleright$}}
+\setbeamertemplate{enumerate item}{\insertenumlabel.}
+\setbeamertemplate{enumerate subitem}{\insertenumlabel.\insertsubenumlabel}
+\setbeamertemplate{enumerate subsubitem}{\insertenumlabel.\insertsubenumlabel.\insertsubsubenumlabel}
+\setbeamertemplate{enumerate mini template}{\insertenumlabel}
 
 % -----------------------------------------------------------------------------
 % Math

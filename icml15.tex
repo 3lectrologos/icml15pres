@@ -1,25 +1,14 @@
-\documentclass[xetex,10pt,mathserif]{beamer}
-%\documentclass[10pt,mathserif,handout]{beamer}
+\documentclass[xetex,10pt,mathserif,handout]{beamer}
 
 \usetheme{Boadilla}
 \usecolortheme{seahorse}
-
-\setbeamertemplate{section in toc}{$\circ$ \inserttocsection}
-\setbeamertemplate{subsection in toc}{\hspace{1em}{\footnotesize$\circ$} \inserttocsubsection}
-\setbeamertemplate{itemize item}{\scriptsize\raise1.25pt\hbox{\donotcoloroutermaths$\blacktriangleright$}}
-\setbeamertemplate{itemize subitem}{\tiny\raise1.5pt\hbox{\donotcoloroutermaths$\blacktriangleright$}}
-\setbeamertemplate{itemize subsubitem}{\tiny\raise1.5pt\hbox{\donotcoloroutermaths$\blacktriangleright$}}
-\setbeamertemplate{enumerate item}{\insertenumlabel.}
-\setbeamertemplate{enumerate subitem}{\insertenumlabel.\insertsubenumlabel}
-\setbeamertemplate{enumerate subsubitem}{\insertenumlabel.\insertsubenumlabel.\insertsubsubenumlabel}
-\setbeamertemplate{enumerate mini template}{\insertenumlabel}
 
 \usefonttheme{professionalfonts}
 \usepackage{fontspec}
 \usepackage{xunicode}
 \usepackage{xltxtra}
-\setmainfont{Myriad Pro}
-\setsansfont[Scale=0.95]{Myriad Pro}
+\setmainfont[Ligatures={Common,TeX}, Scale=0.95]{Myriad Pro}
+\setsansfont[Ligatures={Common,TeX}, Scale=0.95]{Myriad Pro}
 
 \usepackage{media9}
 \usepackage{grfext}\PrependGraphicsExtensions*{.png,.PNG}
@@ -62,7 +51,7 @@
 \usepackage{xspace}
 \newcommand{\algo}{{\sc\textsf{SafeOpt}}\xspace}
 \newcommand{\gpucb}{{\sc\textsf{GP-UCB}}\xspace}
-\newcommand{\localucb}{{\sc\textsf{Local-UCB}}\xspace}
+\newcommand{\localucb}{{\sc\textsf{Safe-UCB}}\xspace}
 
 \title[Safe Gaussian Process Optimization]
 {Safe Exploration for Optimization with Gaussian Processes}
@@ -138,7 +127,7 @@ ICML '15
 \large
 Optimize an unknown reward function via sequential sampling\\[1em]
 AND\\[1em]
-remain ``safe" throughout the process.
+remain ``safe'' throughout the process.
 \end{frame}
 
 \begin{frame}{Problem statement}
