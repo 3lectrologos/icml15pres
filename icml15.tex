@@ -24,7 +24,7 @@
 \usepackage{tikz}
 \usetikzlibrary{arrows,positioning,shapes,fit}
 \usepackage{pgfplots}
-\usetikzlibrary[pgfplots.colormaps]
+\usepgfplotslibrary{fillbetween,colormaps}
 \newlength\figureheight
 \newlength\figurewidth
 
@@ -164,8 +164,85 @@ remain ``safe'' throughout the process.
 }
 \end{frame}
 
-\begin{frame}{Certifying safety}
+\begin{frame}{GP estimation}
+\centering
+\setlength\figurewidth{5in}
+\setlength\figureheight{3.5in}
+\input{figures/gp_0.tex}
+\end{frame}
 
+\begin{frame}{GP estimation}
+\centering
+\setlength\figurewidth{5in}
+\setlength\figureheight{3.5in}
+\input{figures/gp_0f.tex}
+\end{frame}
+
+\begin{frame}{GP estimation}
+\centering
+\setlength\figurewidth{5in}
+\setlength\figureheight{3.5in}
+\input{figures/gp_1.tex}
+\end{frame}
+
+\begin{frame}{GP estimation}
+\centering
+\setlength\figurewidth{5in}
+\setlength\figureheight{3.5in}
+\input{figures/gp_2.tex}
+\end{frame}
+
+\begin{frame}{GP estimation}
+\centering
+\setlength\figurewidth{5in}
+\setlength\figureheight{3.5in}
+\input{figures/gp_3.tex}
+\end{frame}
+
+\begin{frame}{GP estimation}
+\centering
+\setlength\figurewidth{5in}
+\setlength\figureheight{3.5in}
+\input{figures/gp_3f.tex}
+\end{frame}
+
+\begin{frame}{GP-UCB}
+\begin{itemize}
+\item GP-UCB algorithm for sequential optimization [Srinivas et al., 2011]
+\vspace{2em}
+\item $x_t = \argmax_{x \in D} \left( u_t(x) \right)$
+\end{itemize}
+\end{frame}
+
+\begin{frame}{GP-UCB ($t = 0$)}
+\centering
+\setlength\figurewidth{5in}
+\setlength\figureheight{3.5in}
+\input{figures/gpucb_0.tex}
+\end{frame}
+
+\begin{frame}{GP-UCB ($t = 5$)}
+\centering
+\setlength\figurewidth{5in}
+\setlength\figureheight{3.5in}
+\input{figures/gpucb_5.tex}
+\end{frame}
+
+\begin{frame}{GP-UCB ($t = 10$)}
+\centering
+\setlength\figurewidth{5in}
+\setlength\figureheight{3.5in}
+\input{figures/gpucb_10.tex}
+\end{frame}
+
+\begin{frame}{GP-UCB ($t = 20$)}
+\centering
+\setlength\figurewidth{5in}
+\setlength\figureheight{3.5in}
+\input{figures/gpucb_20.tex}
+\end{frame}
+
+\begin{frame}{Certifying safety}
 \uncover<1->{
 {\large Assumptions}
 \begin{itemize}
@@ -247,15 +324,6 @@ f(x) - L\,d(x, x') \geq h
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Estimating $f$}
-\centering
-\setlength\figurewidth{4.2in}
-\setlength\figureheight{2.36in}
-\input{figures/gp.tex}
-
-Width of confidence interval $w_t(x) := u_t(x) - \ell_t(x)$
-\end{frame}
-
 \begin{frame}{Algorithm components}
 
 \uncover<1->{
@@ -322,25 +390,67 @@ g_t(x) := \Big|\bigsetdef{x' \in D \setminus S_t}{u_t(x) - L\,d(x, x') \geq h}\B
 \end{algorithmic}
 \end{frame}
 
-\begin{frame}{1-D example run}
-\centering
-\setlength\figurewidth{5in}
-\setlength\figureheight{2.81in}
-\input{figures/algo_start.tex}
+\begin{frame}{SafeOpt ($t = 0$)}
+  \centering
+  \setlength\figurewidth{5in}
+  \setlength\figureheight{3.5in}
+  \input{figures/safeopt_0.tex}
 \end{frame}
 
-\begin{frame}{1-D example run}
-\centering
-\setlength\figurewidth{5in}
-\setlength\figureheight{2.81in}
-\input{figures/algo_middle.tex}
+\begin{frame}{SafeOpt ($t = 1$)}
+  \centering
+  \setlength\figurewidth{5in}
+  \setlength\figureheight{3.5in}
+  \input{figures/safeopt_1.tex}
 \end{frame}
 
-\begin{frame}{1-D example run}
-\centering
-\setlength\figurewidth{5in}
-\setlength\figureheight{2.81in}
-\input{figures/algo_end.tex}
+\begin{frame}{SafeOpt ($t = 5$)}
+  \centering
+  \setlength\figurewidth{5in}
+  \setlength\figureheight{3.5in}
+  \input{figures/safeopt_5.tex}
+\end{frame}
+
+\begin{frame}{SafeOpt ($t = 10$)}
+  \centering
+  \setlength\figurewidth{5in}
+  \setlength\figureheight{3.5in}
+  \input{figures/safeopt_10.tex}
+\end{frame}
+
+\begin{frame}{SafeOpt ($t = 20$)}
+  \centering
+  \setlength\figurewidth{5in}
+  \setlength\figureheight{3.5in}
+  \input{figures/safeopt_20.tex}
+\end{frame}
+
+\begin{frame}{SafeOpt ($t = 30$)}
+  \centering
+  \setlength\figurewidth{5in}
+  \setlength\figureheight{3.5in}
+  \input{figures/safeopt_30.tex}
+\end{frame}
+
+\begin{frame}{SafeOpt ($t = 35$)}
+  \centering
+  \setlength\figurewidth{5in}
+  \setlength\figureheight{3.5in}
+  \input{figures/safeopt_35.tex}
+\end{frame}
+
+\begin{frame}{SafeOpt ($t = 40$)}
+  \centering
+  \setlength\figurewidth{5in}
+  \setlength\figureheight{3.5in}
+  \input{figures/safeopt_40.tex}
+\end{frame}
+
+\begin{frame}{SafeOpt ($t = 50$)}
+  \centering
+  \setlength\figurewidth{5in}
+  \setlength\figureheight{3.5in}
+  \input{figures/safeopt_50.tex}
 \end{frame}
 
 \begin{frame}{Main theorem}

@@ -1,0 +1,49 @@
+\begin{tikzpicture}
+
+\begin{axis}[
+width=\figurewidth,
+height=\figureheight,
+xmin=0, xmax=10,
+ymin=-2, ymax=3.5,
+xticklabels={,,},
+yticklabels={,,},
+major tick length=0pt,
+clip=false
+]
+
+\addplot [
+name path=A,
+draw=olive!20!lightgray,
+draw=none
+]
+table [col sep=comma] {matlab/gp-3-lt.csv};
+
+\addplot [
+name path=B,
+draw=olive!20!lightgray,
+draw=none
+]
+table [col sep=comma] {matlab/gp-3-ut.csv};
+
+\addplot[lime!30!gray, opacity=0.5] fill between[of=A and B];
+
+\addplot[
+  gray,
+  solid,
+  line width=1.3pt
+]
+table [col sep=comma] {matlab/ftrue.csv};
+
+\addplot[
+only marks,
+mark=x,
+lime!30!black,
+mark size=3.5,
+line width=1.4pt,
+opacity=0.8
+]
+table [col sep=comma] {matlab/gp-3-train.csv};
+
+\end{axis}
+
+\end{tikzpicture}

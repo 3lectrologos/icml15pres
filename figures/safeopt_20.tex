@@ -1,0 +1,79 @@
+\begin{tikzpicture}
+
+\begin{axis}[
+width=\figurewidth,
+height=\figureheight,
+xmin=0, xmax=10,
+ymin=-2, ymax=3.5,
+xticklabels={,,},
+yticklabels={,,},
+major tick length=0pt
+]
+
+\addplot [
+  name path=A,
+  draw=olive!20!lightgray,
+  draw=none
+]
+table [col sep=comma] {matlab/safeopt-20-lt.csv};
+
+\addplot [
+  name path=B,
+  draw=olive!20!lightgray,
+  draw=none
+]
+table [col sep=comma] {matlab/safeopt-20-ut.csv};
+
+\addplot[lime!30!gray, opacity=0.5] fill between[of=A and B];
+
+\addplot [
+  magenta!50!darkgray,
+  line width=1pt,
+  densely dashed
+]
+table [col sep=comma] {matlab/hp.csv};
+
+\addplot[
+  gray,
+  solid,
+  line width=1.3pt
+]
+table [col sep=comma] {matlab/ftrue.csv};
+
+\addplot[
+only marks,
+mark=x,
+lime!30!black,
+mark size=3.5,
+line width=1.4pt,
+opacity=0.8
+]
+table [col sep=comma] {matlab/safeopt-20-train.csv};
+
+\addplot[
+only marks,
+mark=square*,
+cyan!70!black,
+mark size=2
+]
+table [col sep=comma] {matlab/safeopt-20-st.csv};
+
+\addplot[
+only marks,
+mark=square*,
+lime!70!black,
+mark size=2
+]
+table [col sep=comma] {matlab/safeopt-20-gt.csv};
+
+\addplot[
+only marks,
+mark=square*,
+orange!70!black,
+mark size=2
+]
+table [col sep=comma] {matlab/safeopt-20-mt.csv};
+
+\end{axis}
+
+\end{tikzpicture}
