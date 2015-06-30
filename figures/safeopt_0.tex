@@ -11,6 +11,22 @@ major tick length=0pt
 ]
 
 \addplot [
+name path=A,
+draw=olive!20!lightgray,
+draw=none
+]
+table [col sep=comma] {matlab/safeopt-0-lt.csv};
+
+\addplot [
+name path=B,
+draw=olive!20!lightgray,
+draw=none
+]
+table [col sep=comma] {matlab/safeopt-0-ut.csv};
+
+\addplot[lime!30!gray, opacity=0.5] fill between[of=A and B];
+
+\addplot [
   magenta!50!darkgray,
   line width=1pt,
   densely dashed

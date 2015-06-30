@@ -1,4 +1,4 @@
-function [fm, fs, xtrain, ytrain, st] = safeucb(x, f, fgp, sn, niter, h, L, s0, plot)
+function [fm, fs, xtrain, ytrain, st] = safeucb(x, f, fgp, sn, niter, h, L, s0, fplot)
   rng(42);
   st = s0;
   xtrain = zeros(0, 1);
@@ -9,11 +9,13 @@ function [fm, fs, xtrain, ytrain, st] = safeucb(x, f, fgp, sn, niter, h, L, s0, 
   for t = 1:niter
     lt = fm - 2*sqrt(fs);
     ut = fm + 2*sqrt(fs);
+    newst = st;
     for i = 1:length(st)
       zi = st(i);
       cert = find(lt(zi) - L*abs(x - x(zi)) >= h);
-      st = union(st, cert);
+      newst = union(newst, cert);
     end
+    st = newst;
     ust = ut(st);
     umax = max(ust);
     imax = st(ust == umax);
@@ -22,7 +24,7 @@ function [fm, fs, xtrain, ytrain, st] = safeucb(x, f, fgp, sn, niter, h, L, s0, 
     ytrain = [ytrain; f(idx) + sn*noise(t)];
     [~, ~, fm, fs] = fgp(xtrain, ytrain, x);
   end
-  if plot
+  if fplot
     figure;
     hold on;
     ylim([-2, 3.5]);

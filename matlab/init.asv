@@ -16,40 +16,82 @@ fgp = @(xtrain, ytrain, x)gp(hyp, @infExact, meanfunc, covfunc, likfunc, xtrain,
 h = 0;
 s0 = 70;
 hp = h * ones(length(x), 1);
-
 csvwrite('ftrue.csv', [x f]);
 csvwrite('hp.csv', [x hp]);
 csvwrite('s0.csv', [x(s0) f(s0)]);
 
-run_gp(x, f, fgp, sn, 130);
-run_gp(x, f, fgp, sn, [30, 130]);
-run_gp(x, f, fgp, sn, [30, 130, 160]);
+run_gp(x, f, fgp, sn, []);
+run_gp(x, f, fgp, sn, 90);
+run_gp(x, f, fgp, sn, [50, 90]);
+run_gp(x, f, fgp, sn, [50, 90, 170]);
 
-%s0 = 100;
-%plot(x(s0), f(s0), 'go');
+s0 = 95;
+plot(x(s0), f(s0), 'go');
+L = lip(x, f);
+hold on;
+ylim([-2, 3.5]);
+hp = h * ones(length(x), 1);
+l1 = f(s0) + L*(-x + x(s0));
+l2 = f(s0) + L*(x - x(s0));
+plot(x, hp, 'k--');
+plot(x, f, '--');
+plot(x, l1, 'b');
+plot(x, l2, 'b');
+csvwrite('cert1-s0.csv', [x(s0) f(s0)]);
+csvwrite('cert1-lip1.csv', [x, l1]);
+csvwrite('cert1-lip2.csv', [x, l2]);
+xst = x(l1 >=0 & l2 >= 0);
+csvwrite('cert1-st.csv', [xst, -1.88*ones(length(xst), 1)]);
 
-%L = lip(x, f);
-%plot(x, f(s0) + L*(-x + x(s0)), 'b');
-%plot(x, f(s0) + L*(x - x(s0)), 'b');
+figure;
+hold on;
+s0 = 95;
+plot(x(s0), f(s0), 'go');
+L = lip(x, f);
+ylim([-2, 3.5]);
+hp = h * ones(length(x), 1);
+ep = 0.2;
+l11 = f(s0) + ep + L*(-x + x(s0));
+l12 = f(s0) + ep + L*(x - x(s0));
+l1 = l11 .* (x <= x(s0)) + l12 .* (x > x(s0));
+l21 = f(s0) - ep + L*(-x + x(s0));
+l22 = f(s0) - ep + L*(x - x(s0));
+l2 = l21 .* (x > x(s0)) + l22 .* (x <= x(s0));
+plot(x, hp, 'k--');
+plot(x, f, '--');
+plot(x, l1, 'b');
+plot(x, l2, 'b');
+csvwrite('cert2-s0.csv', [[x(s0); x(s0)] [f(s0)-ep; f(s0)+ep]]);
+csvwrite('cert2-lip1.csv', [x, l1]);
+csvwrite('cert2-lip2.csv', [x, l2]);
+st = find(l2 >= 0);
+xst = x(st);
+csvwrite('cert2-st.csv', [xst, -1.88*ones(length(xst), 1)]);
 
-%plot(x, fm, 'r-');
-%plot(x, fm + 2*sqrt(fs), 'r--');
-%plot(x, fm - 2*sqrt(fs), 'r--');
-%plot(xtrain, ytrain, 'ro');
+csvwrite('cert3-lt.csv', [[x(st); x(st)] [f(st)-ep; f(st)+ep]]);
+st = find(l2 >= 0);
+for i = 1:length(st)
+  zi = st(i);
+  cert = find(f(zi) - ep - L*abs(x - x(zi)) >= h);
+  st = union(st, cert);
+end
+xst = x(st);
+csvwrite('cert3-st.csv', [xst, -1.88*ones(length(xst), 1)]);
 
-%figure;
-%niter = 100;
-%fgp = @(xtrain, ytrain, x)gp(hyp, @infExact, meanfunc, covfunc, likfunc, xtrain, ytrain, x);
-%gpucb(x, f, fgp, sn, niter, h);
-
-
-run_safeopt(x, f, fgp, sn, s0, h, 0, 0);
-run_safeopt(x, f, fgp, sn, s0, h, 1);
-run_safeopt(x, f, fgp, sn, s0, h, 5);
-run_safeopt(x, f, fgp, sn, s0, h, 10);
-run_safeopt(x, f, fgp, sn, s0, h, 20);
-run_safeopt(x, f, fgp, sn, s0, h, 30);
-run_safeopt(x, f, fgp, sn, s0, h, 35);
-run_safeopt(x, f, fgp, sn, s0, h, 40);
-run_safeopt(x, f, fgp, sn, s0, h, 50);
-run_safeopt(x, f, fgp, sn, s0, h, 100);
+% fplot = 0;
+% run_gpucb(x, f, fgp, sn, h, 0, fplot);
+% run_gpucb(x, f, fgp, sn, h, 5, fplot);
+% run_gpucb(x, f, fgp, sn, h, 10, fplot);
+% run_gpucb(x, f, fgp, sn, h, 20, fplot);
+% 
+% fplot = 0;
+% run_safeopt(x, f, fgp, sn, s0, h, 0, fplot);
+% run_safeopt(x, f, fgp, sn, s0, h, 1, fplot);
+% run_safeopt(x, f, fgp, sn, s0, h, 5, fplot);
+% run_safeopt(x, f, fgp, sn, s0, h, 10, fplot);
+% run_safeopt(x, f, fgp, sn, s0, h, 20, fplot);
+% run_safeopt(x, f, fgp, sn, s0, h, 30, fplot);
+% run_safeopt(x, f, fgp, sn, s0, h, 35, fplot);
+% run_safeopt(x, f, fgp, sn, s0, h, 40, fplot);
+% run_safeopt(x, f, fgp, sn, s0, h, 50, fplot);
+% run_safeopt(x, f, fgp, sn, s0, h, 100, fplot);

@@ -158,7 +158,7 @@ remain ``safe'' throughout the process.
 \uncover<3->{
 {\large Goal}
 \begin{itemize}
-\item Locate an optimum $x^* \in \displaystyle\argmax_{x\in D}\left(f(x)\right)$
+\item Locate an optimum $x^* \in \argmax_{x\in D}\left(f(x)\right)$
 \item Remain safe: $\forall t \geq 1,\ f(x_t) \geq h$
 \end{itemize}
 }
@@ -208,9 +208,11 @@ remain ``safe'' throughout the process.
 
 \begin{frame}{GP-UCB}
 \begin{itemize}
-\item GP-UCB algorithm for sequential optimization [Srinivas et al., 2011]
+\item Use upper confidence bounds for ``optimistic'' sampling
 \vspace{2em}
 \item $x_t = \argmax_{x \in D} \left( u_t(x) \right)$
+\vspace{2em}
+\item Sublinear regret under suitable conditions on $f$ [Srinivas et al., 2011]
 \end{itemize}
 \end{frame}
 
@@ -243,85 +245,132 @@ remain ``safe'' throughout the process.
 \end{frame}
 
 \begin{frame}{Certifying safety}
-\uncover<1->{
-{\large Assumptions}
 \begin{itemize}
-\item $d$ is a metric on $D$
-\item $f$ is $L$-Lipschitz continuous w.r.t. $d$
-\end{itemize}
+\item Assume that $f$ is $L$-Lipschitz continuous w.r.t. a metric $d$
 \vspace{2em}
-}
-
-\uncover<2->{
-{\large Safety certificate}\\[0.5em]
-If we know $f(x)$ for some (safe) $x$, then we can certify as safe any $x'$, such that
+\item If for some safe $x$ we know $f(x)$, then a safety certificate for $x'$ is
 \begin{align*}
 f(x) - L\,d(x, x') \geq h
 \end{align*}
-}
+\end{itemize}
 \end{frame}
 
 \begin{frame}{Certifying safety}
 \centering
-\setlength\figurewidth{4.2in}
-\setlength\figureheight{2.36in}
-\input{figures/safe1.tex}
+\setlength\figurewidth{5in}
+\setlength\figureheight{3.5in}
+\input{figures/cert_1_0.tex}
 \end{frame}
 
 \begin{frame}{Certifying safety}
 \centering
-\setlength\figurewidth{4.2in}
-\setlength\figureheight{2.36in}
-\input{figures/safe2.tex}
+\setlength\figurewidth{5in}
+\setlength\figureheight{3.5in}
+\input{figures/cert_1_1.tex}
 \end{frame}
 
-\begin{frame}{Reachability}
+\begin{frame}{Certifying safety}
+\centering
+\setlength\figurewidth{5in}
+\setlength\figureheight{3.5in}
+\input{figures/cert_1_2.tex}
+\end{frame}
 
-\uncover<1->{
-{\large One-step reachability operator}
-\begin{align*}
-\Reps(S) := S \cup \left\{x' \in D \mid \exists x \in S,\ f(x) - \epsilon - L\,d(x, x') \geq h\right\}
-\end{align*}
-\vspace{1em}
-}
+\begin{frame}{Certifying safety}
+\centering
+\setlength\figurewidth{5in}
+\setlength\figureheight{3.5in}
+\input{figures/cert_2_0.tex}
+\end{frame}
 
-\uncover<2->{
-{\large $n$-step reachability operator}
-\begin{align*}
-\Reps^n(S) := \underbrace{\Reps(\Reps\ldots(\Reps}_{n\ \mathrm{times}}(S))\ldots)
-\end{align*}
-\vspace{1em}
-}
+\begin{frame}{Certifying safety}
+\centering
+\setlength\figurewidth{5in}
+\setlength\figureheight{3.5in}
+\input{figures/cert_2_1.tex}
+\end{frame}
 
-\uncover<3->{
-{\large $\epsilon$-reachable set from $S$}
-\begin{align*}
-\Rbeps(S) := \displaystyle\lim_{n \to \infty} \Reps^n(S)
-\end{align*}
-}
+\begin{frame}{Certifying safety}
+\centering
+\setlength\figurewidth{5in}
+\setlength\figureheight{3.5in}
+\input{figures/cert_3.tex}
+\end{frame}
+
+\begin{frame}{Certifying safety}
+\centering
+\setlength\figurewidth{5in}
+\setlength\figureheight{3.5in}
+\input{figures/cert_4.tex}
+\end{frame}
+
+\begin{frame}{Certifying safety}
+\centering
+\setlength\figurewidth{5in}
+\setlength\figureheight{3.5in}
+\input{figures/cert_5.tex}
+\end{frame}
+
+\begin{frame}{Certifying safety}
+\centering
+\setlength\figurewidth{5in}
+\setlength\figureheight{3.5in}
+\input{figures/cert_6.tex}
 \end{frame}
 
 \begin{frame}{Reconsidering optimization}
 \begin{itemize}
-\item<1-> No algorithm that is $\epsilon$-uncertain about $f$ can certify any $x \in D \setminus \Rbeps(S_0)$ as safe
-\vspace{2em}
 \item<2-> Goal of finding $f^* = \max_{x \in D}\left(f(x)\right)$ is unrealistic
 \vspace{2em}
-\item<3-> Instead, aim for the $\epsilon$-reachable maximum
-  \begin{align*}
-    f_{\epsilon}^* = \max_{x \in \Rbeps(S_0)}\left(f(x)\right)
-  \end{align*}
+\item<3-> Instead, aim for the $\epsilon$-reachable maximum $f_{\epsilon}^* = \max_{x \in \Rbeps(S_0)}\left(f(x)\right)$
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Estimating $f$}
+\begin{frame}{SafeUCB}
 \begin{itemize}
-\item<1-> To certify safety, we need to estimate $f$
-\vspace{2em}
-\item<2-> Additional assumption: $f$ has bounded norm in the RKHS associated with some kernel $k$ defined on $D$
-\vspace{2em}
-\item<3-> Then, we can model $f$ as a Gaussian process and obtain confidence estimates
+  \item Heuristic variant of GP-UCB
+  \vspace{2em}
+  \item Keep set $S_t$ of certified safe points (start with $S_0$)
+  \vspace{2em}
+  \item Use GP lower bounds to certify safety
+  \vspace{2em}
+  \item $x_t = \argmax_{x \in S_t} \left( u_t(x) \right)$
 \end{itemize}
+\end{frame}
+
+\begin{frame}{SafeUCB ($t = 0$)}
+\centering
+\setlength\figurewidth{5in}
+\setlength\figureheight{3.5in}
+\input{figures/safeopt_0.tex}
+\end{frame}
+
+\begin{frame}{SafeUCB ($t = 5$)}
+\centering
+\setlength\figurewidth{5in}
+\setlength\figureheight{3.5in}
+\input{figures/safeucb_5.tex}
+\end{frame}
+
+\begin{frame}{SafeUCB ($t = 10$)}
+\centering
+\setlength\figurewidth{5in}
+\setlength\figureheight{3.5in}
+\input{figures/safeucb_10.tex}
+\end{frame}
+
+\begin{frame}{SafeUCB ($t = 20$)}
+\centering
+\setlength\figurewidth{5in}
+\setlength\figureheight{3.5in}
+\input{figures/safeucb_20.tex}
+\end{frame}
+
+\begin{frame}{SafeUCB ($t = 50$)}
+\centering
+\setlength\figurewidth{5in}
+\setlength\figureheight{3.5in}
+\input{figures/safeucb_50.tex}
 \end{frame}
 
 \begin{frame}{Algorithm components}
@@ -395,13 +444,6 @@ g_t(x) := \Big|\bigsetdef{x' \in D \setminus S_t}{u_t(x) - L\,d(x, x') \geq h}\B
   \setlength\figurewidth{5in}
   \setlength\figureheight{3.5in}
   \input{figures/safeopt_0.tex}
-\end{frame}
-
-\begin{frame}{SafeOpt ($t = 1$)}
-  \centering
-  \setlength\figurewidth{5in}
-  \setlength\figureheight{3.5in}
-  \input{figures/safeopt_1.tex}
 \end{frame}
 
 \begin{frame}{SafeOpt ($t = 5$)}
@@ -589,9 +631,7 @@ Then, the following jointly hold with probability at least $1-\delta$:
 \vspace{2em}
 \item<2-> We proposed a simple algorithm with theoretical guarantees
 \vspace{2em}
-\item<3-> Better sample complexity bound under additional assumptions?
-\vspace{2em}
-\item<4-> More efficient sampling heuristics?
+\item Poster ad
 \end{itemize}
 \end{frame}
 
