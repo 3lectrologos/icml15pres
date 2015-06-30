@@ -3,9 +3,10 @@
 \begin{axis}[
 name=plot1,
 anchor=above north west,
-tick label style={font=\small},
-label style={font=\small},
-title={\small\algo},
+tick label style={font=\footnotesize},
+label style={font=\footnotesize},
+title={\footnotesize\algo},
+title style={yshift=-1em},
 width=\figurewidth,
 height=\figureheight/3,
 xmin=0.33, xmax=1.02,
@@ -58,12 +59,14 @@ coordinates{
 \end{axis}
 
 \begin{axis}[
+yshift=-1em,
 name=plot2,
 at=(plot1.below south west),
 anchor=above north west,
-tick label style={font=\small},
-label style={font=\small},
-title={\small\localucb},
+tick label style={font=\footnotesize},
+label style={font=\footnotesize},
+title={\footnotesize\localucb},
+title style={yshift=-1em},
 width=\figurewidth,
 height=\figureheight/3,
 xmin=0.33, xmax=1.02,
@@ -116,12 +119,14 @@ coordinates{
 \end{axis}
 
 \begin{axis}[
+yshift=-1em,
 name=plot3,
 at=(plot2.below south west),
 anchor=above north west,
 tick label style={font=\footnotesize},
 label style={font=\footnotesize},
 title={\footnotesize\gpucb},
+title style={yshift=-1em},
 width=\figurewidth,
 height=\figureheight/3,
 xmin=0.33, xmax=1.02,
