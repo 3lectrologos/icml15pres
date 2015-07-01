@@ -91,19 +91,19 @@ ICML '15
 \section{Motivation}
 
 \begin{frame}{Better safe than sorry}
-%\begin{center}
-%\includemedia[
-%width=4.7in,height=2.655in,
-%addresource=figures/robot.mp4,
-%activate=pageopen,
-%flashvars={
-%autoPlay=true
-%&source=figures/robot.mp4
-%&loop=true % loop video
-%&scaleMode=letterbox % preserve aspect ratio while scaling the video
-%}
-%]{}{VPlayer.swf}
-%\end{center}
+\begin{center}
+\includemedia[
+width=4.7in,height=2.655in,
+addresource=figures/robot.mp4,
+activate=pageopen,
+flashvars={
+autoPlay=true
+&source=figures/robot.mp4
+&loop=true % loop video
+&scaleMode=letterbox % preserve aspect ratio while scaling the video
+}
+]{}{VPlayer.swf}
+\end{center}
 \end{frame}
 
 \begin{frame}{Therapeutic spinal cord stimulation}
@@ -114,9 +114,10 @@ ICML '15
 
 \column{0.55\textwidth}
 \centering
-\sig{\includegraphics[width=2.43in]{figures/spinal2.jpg}}{sjm.com}
+\sig{\includegraphics[width=2.37in]{figures/spinal2.jpg}}{sjm.com}
 \begin{itemize}
 \item Find electrode configurations that maximize muscle activity
+\vspace{0.5em}
 \item Bad configurations may cause pain or have negative effects on treatment
 \end{itemize}
 \end{columns}
@@ -128,6 +129,7 @@ ICML '15
 \vspace{2em}
 \begin{itemize}
 \item Explore the movie space to discover each user's taste profile
+\vspace{0.5em}
 \item Bad recommendations may cause user dissatisfaction
 \end{itemize}
 \end{frame}
@@ -169,7 +171,7 @@ Sequential sampling
 Goal
 \vspace{0.5em}
 \begin{itemize}
-\item Find $x^* \in \argmax_{x\in D}\left(f(x)\right)$
+\item Find $x^* \in \argmax_{x\in D}f(x)$
 \vspace{0.5em}
 \item Remain safe: $\forall t \geq 1,\ f(x_t) \geq h$
 \end{itemize}
@@ -221,7 +223,7 @@ Goal
 \begin{itemize}
 \item Use upper confidence bounds for optimistic sampling
 \vspace{2em}
-\item $x_t = \argmax_{x \in D} \left( u_t(x) \right)$
+\item $x_t = \argmax_{x \in D}u_t(x)$
 \vspace{2em}
 \item Sublinear regret under suitable conditions on $f$ [Srinivas et al., ICML 2010]
 \end{itemize}

@@ -4,7 +4,7 @@
 width=\figurewidth,
 height=\figureheight,
 xmin=0, xmax=10,
-ymin=-1.5, ymax=3.5,
+ymin=-2, ymax=3.5,
 xticklabels={,,},
 yticklabels={,,},
 major tick length=0pt
@@ -43,10 +43,12 @@ table [col sep=comma] {matlab/ftrue.csv};
 \addplot[
   lime!50!darkgray,
   only marks,
-  mark=triangle*,
-  mark size=3.5
+  mark=*,
+mark size=2.5
 ]
 table [col sep=comma] {matlab/s0.csv};
+
+\node at (axis cs:3.5,0.4) [anchor=south,minimum size=16pt] {\color{lime!50!darkgray}$S_0$};
 
 \end{axis}
 
