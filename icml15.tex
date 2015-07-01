@@ -1,4 +1,4 @@
-\documentclass[xetex,10pt,mathserif,handout]{beamer}
+\documentclass[xetex,10pt,mathserif]{beamer}
 
 \usetheme{Boadilla}
 \usecolortheme{seahorse}
@@ -144,18 +144,19 @@ remain ``safe'' throughout the process.
 
 \begin{frame}{Problem statement}
 \begin{itemize}
-\item Finite decision set $D$
+\item<1-> Finite decision set $D$
 \vspace{2em}
-\item Unknown reward function $f : D \to \mathbb{R}$
+\item<2-> Unknown reward function $f : D \to \mathbb{R}$
 \vspace{2em}
-\item Safety threshold $h \in \mathbb{R}$ ($x$ is called safe, if $f(x) \geq h$)
+\item<3-> Safety threshold $h \in \mathbb{R}$ ($x$ is called safe, if $f(x) \geq h$)
 \vspace{2em}
-\item Seed set $S_0$ of safe decisions ($\forall x \in S_0,\ f(x) \geq h$)
+\item<4-> Seed set $S_0$ of safe decisions ($\forall x \in S_0,\ f(x) \geq h$)
 \end{itemize}
 \end{frame}
 
 \begin{frame}{Problem statement}
-	
+
+\uncover<1->{
 Sequential sampling
 \vspace{0.5em}
 \begin{itemize}
@@ -167,6 +168,8 @@ Sequential sampling
     \item observe $f(x_t) + n_t$
   \end{itemize}
 \end{itemize}
+}
+\uncover<2->{
 \vspace{3em}
 Goal
 \vspace{0.5em}
@@ -175,6 +178,7 @@ Goal
 \vspace{0.5em}
 \item Remain safe: $\forall t \geq 1,\ f(x_t) \geq h$
 \end{itemize}
+}
 \end{frame}
 
 \begin{frame}{GP estimation}
@@ -221,11 +225,11 @@ Goal
 
 \begin{frame}{GP-UCB}
 \begin{itemize}
-\item Use upper confidence bounds for optimistic sampling
+\item<1-> Use upper confidence bounds for optimistic sampling
 \vspace{2em}
-\item $x_t = \argmax_{x \in D}u_t(x)$
+\item<2-> $x_t = \argmax_{x \in D}u_t(x)$
 \vspace{2em}
-\item Sublinear regret under suitable conditions on $f$ [Srinivas et al., ICML 2010]
+\item<3-> Sublinear regret under suitable conditions on $f$ [Srinivas et al., ICML 2010]
 \end{itemize}
 \end{frame}
 
@@ -259,9 +263,9 @@ Goal
 
 \begin{frame}{Certifying safety}
 \begin{itemize}
-\item Assume that $f$ is $L$-Lipschitz continuous w.r.t. a metric $d$
+\item<1-> Assume that $f$ is $L$-Lipschitz continuous w.r.t. a metric $d$
 \vspace{2em}
-\item If for some safe $x$ we know $f(x)$, then a safety certificate for $x'$ is
+\item<2-> If for some safe $x$ we know $f(x)$, then a safety certificate for $x'$ is
 \begin{align*}
 f(x) - L\,d(x, x') \geq h
 \end{align*}
@@ -333,19 +337,19 @@ f(x) - L\,d(x, x') \geq h
 
 \begin{frame}{Reconsidering optimization}
 \begin{itemize}
-\item<2-> Goal of finding $f^* = \max_{x \in D}\left(f(x)\right)$ is unrealistic
+\item<1-> Goal of finding $f^* = \max_{x \in D}\left(f(x)\right)$ is unrealistic
 \vspace{2em}
-\item<3-> Instead, aim for the $\epsilon$-reachable maximum $f_{\epsilon}^* = \max_{x \in \ccrbeps}\left(f(x)\right)$
+\item<2-> Instead, aim for the $\epsilon$-reachable maximum $f_{\epsilon}^* = \max_{x \in \ccrbeps}\left(f(x)\right)$
 \end{itemize}
 \end{frame}
 
 \begin{frame}{\localucb}
 \begin{itemize}
-  \item Keep set \cst of certified safe points (starting with $S_0$)
+  \item<1-> Keep set \cst of certified safe points (starting with $S_0$)
   \vspace{2em}
-  \item Use Lipschitz property with GP lower bounds to certify safety
+  \item<2-> Use Lipschitz property with GP lower bounds to certify safety
   \vspace{2em}
-  \item $x_t = \argmax_{x \in \ccst} \left( u_t(x) \right)$
+  \item<3-> $x_t = \argmax_{x \in \ccst} \left( u_t(x) \right)$
 \end{itemize}
 \end{frame}
 
@@ -386,15 +390,11 @@ f(x) - L\,d(x, x') \geq h
 
 \begin{frame}{SafeOpt}
 \begin{itemize}
-  \item Encourage expansion of \cst
-  \vspace{1em}
-  \item Keep set \cgt$\subseteq\,$\cst of potential expanders
+  \item<1-> Encourage expansion of \cst $\rightarrow\ $ keep set \cgt$\subseteq\,$\cst of potential expanders
   \vspace{2em}
-  \item Encourage locating the maximum within \cst
-  \vspace{1em}
-  \item Keep set \cmt$\subseteq\,$\cst of potential maximizers
+  \item<2-> Encourage locating the maximum within \cst $\rightarrow\ $ keep set \cmt$\subseteq\,$\cst of potential maximizers
   \vspace{2em}
-  \item Pick most uncertain point within \cgt$\cup\,$\cmt
+  \item<3-> Pick most uncertain point within \cgt$\cup\,$\cmt
 \end{itemize}
 \end{frame}
 
@@ -415,24 +415,12 @@ f(x) - L\,d(x, x') \geq h
            \hspace{2.1em}safety threshold $h$
   %\ENSURE predicted super- and sublevel sets
   \STATE
-  \uncover<1->{
   \FOR{$t = 1,2,\ldots$}
-  }
-    \uncover<2->{
-      \STATE Update \cst (using $\ell_t$, $L$, and $h$)
-      \STATE Update \cgt (using $\ell_t$ and $u_t$)
-      \STATE Update \cmt (using $u_t$ and $h$)
-    }
-    \uncover<3->{
-      \LET{$x_t$}{$\argmax_{x \in \ccgt \cup \ccmt}(u_t(x) - \ell_t(x))$}
-      \LET{$y_t$}{$f(x_t) + n_t$}
-    }
-    \uncover<4->{
-      \STATE Update GP estimates
-    }
-  \uncover<1->{
-    \ENDFOR
-  }
+    \STATE Update \cst, \cgt, and \cmt
+    \LET{$x_t$}{$\argmax_{x \in \ccgt \cup \ccmt}(u_t(x) - \ell_t(x))$}
+    \LET{$y_t$}{$f(x_t) + n_t$}
+    \STATE Update GP estimates
+  \ENDFOR
 \end{algorithmic}
 \end{frame}
 
@@ -492,25 +480,25 @@ f(x) - L\,d(x, x') \geq h
   \input{figures/safeopt_50.tex}
 \end{frame}
 
-\begin{frame}{SafeOpt theorem}
-Assumptions
-\vspace{1em}
-\begin{itemize}
-  \item $f$ has bounded norm in the RKHS defined by $k$
-  \vspace{1em}
-  \item $f$ is $L$-Lipschitz continuous
-  \vspace{1em}
-  \item $n_t$ is a uniformly bounded martingale difference sequence
-\end{itemize}
-\vspace{2em}
-Under suitable scaling of the GP confidence intervals, the following jointly hold w.h.p.
-\vspace{1em}
-\begin{itemize}
-  \item $\forall t \geq 1$, $f(x_t) \geq h$
-  \vspace{1em}
-  \item $\forall t \geq t^*$, $f(\hat{x}_t) \geq f^*_{\epsilon} - \epsilon$
-\end{itemize}
-\end{frame}
+%\begin{frame}{SafeOpt theorem}
+%Assumptions
+%\vspace{1em}
+%\begin{itemize}
+%  \item $f$ has bounded norm in the RKHS defined by $k$
+%  \vspace{1em}
+%  \item $f$ is $L$-Lipschitz continuous
+%  \vspace{1em}
+%  \item $n_t$ is a uniformly bounded martingale difference sequence
+%\end{itemize}
+%\vspace{2em}
+%Under suitable scaling of the GP confidence intervals, the following jointly hold w.h.p.
+%\vspace{1em}
+%\begin{itemize}
+%  \item $\forall t \geq 1$, $f(x_t) \geq h$
+%  \vspace{1em}
+%  \item $\forall t \geq t^*$, $f(\hat{x}_t) \geq f^*_{\epsilon} - \epsilon$
+%\end{itemize}
+%\end{frame}
 
 \begin{frame}{Experiment 1: Synthetic}
 \begin{columns}[c]
@@ -518,11 +506,15 @@ Under suitable scaling of the GP confidence intervals, the following jointly hol
 \centering
 \setlength\figurewidth{3in}
 \setlength\figureheight{4.3in}
+\uncover<1->{
 \input{figures/synthetic_regret.tex}
+}
 \column{0.45\textwidth}
 \setlength\figurewidth{2.5in}
 \setlength\figureheight{3.7in}
+\uncover<2->{
 \input{figures/synthetic_hist.tex}
+}
 \end{columns}
 \end{frame}
 
@@ -551,14 +543,20 @@ Under suitable scaling of the GP confidence intervals, the following jointly hol
 \begin{center}
 \setlength\figurewidth{2.5in}
 \setlength\figureheight{1.7in}
+\uncover<1->{
 \input{figures/spinal_stop_samples.tex}\\[0.5em]
+}
+\uncover<2->{
 \input{figures/spinal_nonstop_samples.tex}
+}
 \end{center}
 \column{0.45\textwidth}
 \centering
 \setlength\figurewidth{2.5in}
 \setlength\figureheight{3.7in}
+\uncover<3->{
 \input{figures/spinal_hist.tex}
+}
 \end{columns}
 \end{frame}
 
@@ -568,7 +566,7 @@ Under suitable scaling of the GP confidence intervals, the following jointly hol
 \vspace{2em}
 \begin{itemize}
   \item Rigorous theoretical setup and analysis
-  \vspace{2em}
+  \vspace{1em}
   \item Another application: safe movie recommendation
 \end{itemize}
 \end{frame}
