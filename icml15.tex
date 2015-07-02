@@ -1,4 +1,4 @@
-\documentclass[xetex,10pt,mathserif]{beamer}
+\documentclass[xetex,10pt,mathserif,handout]{beamer}
 
 \usetheme{Boadilla}
 \usecolortheme{seahorse}
@@ -15,6 +15,7 @@
 
 
 %%
+\usepackage{mathtools}
 \usepackage{xspace}
 \usepackage{makecell}
 \usepackage{msthpres}
@@ -37,6 +38,7 @@
 \newcommand{\qauth}[1]{{\footnotesize\par\normalfont\hfill---\ \emph{#1}\par}}
 
 % math stuff
+\newcommand{\defeq}{\vcentcolon=}
 \newcommand{\LLC}{$L$-Lipschitz continuous}
 \newcommand{\Reps}{R_{\epsilon}}
 \newcommand{\Rbeps}{\bar{R}_{\epsilon}}
@@ -92,6 +94,7 @@ ICML '15
 
 \begin{frame}{Better safe than sorry}
 \begin{center}
+\sig{
 \includemedia[
 width=4.7in,height=2.655in,
 addresource=figures/robot.mp4,
@@ -103,6 +106,7 @@ autoPlay=true
 &scaleMode=letterbox % preserve aspect ratio while scaling the video
 }
 ]{}{VPlayer.swf}
+}{youtube.com/user/mattessons}
 \end{center}
 \end{frame}
 
@@ -123,16 +127,16 @@ autoPlay=true
 \end{columns}
 \end{frame}
 
-\begin{frame}{Movie recommendation}
-\centering
-\includegraphics[width=4.5in]{figures/netflix.png}
-\vspace{2em}
-\begin{itemize}
-\item Explore the movie space to discover each user's taste profile
-\vspace{0.5em}
-\item Bad recommendations may cause user dissatisfaction
-\end{itemize}
-\end{frame}
+%\begin{frame}{Movie recommendation}
+%\centering
+%\includegraphics[width=4.5in]{figures/netflix.png}
+%\vspace{2em}
+%\begin{itemize}
+%\item Explore the movie space to discover each user's taste profile
+%\vspace{0.5em}
+%\item Bad recommendations may cause user dissatisfaction
+%\end{itemize}
+%\end{frame}
 
 \begin{frame}{Goal}
 \centering
@@ -179,6 +183,9 @@ Goal
 \item Remain safe: $\forall t \geq 1,\ f(x_t) \geq h$
 \end{itemize}
 }
+\end{frame}
+
+\begin{frame}{Previous work}
 \end{frame}
 
 \begin{frame}{Gaussian process regression}
@@ -339,11 +346,14 @@ f(x) - L\,d(x, x') \geq h
 \begin{itemize}
 \item<1-> Goal of finding $f^* = \max_{x \in D}\left(f(x)\right)$ is unrealistic
 \vspace{2em}
-\item<2-> Instead, aim for the $\epsilon$-reachable maximum $f_{\epsilon}^* = \max_{x \in \ccrbeps}\left(f(x)\right)$
+\item<2-> Instead, aim for the $\epsilon$-reachable maximum
+\begin{align*}
+  f_{\epsilon}^* = \max_{x \in \ccrbeps}\left(f(x)\right)
+\end{align*}
 \end{itemize}
 \end{frame}
 
-\begin{frame}{\localucb}
+\begin{frame}{First attempt: \localucb}
 \begin{itemize}
   \item<1-> Keep set \cst of certified safe points (starting with $S_0$)
   \vspace{2em}
@@ -396,32 +406,6 @@ f(x) - L\,d(x, x') \geq h
   \vspace{2em}
   \item<3-> Pick most uncertain point within \cgt$\cup\,$\cmt
 \end{itemize}
-\end{frame}
-
-\definecolor{c1}{RGB}{255,255,255}
-\definecolor{c2}{RGB}{27,161,226}
-\definecolor{c6}{RGB}{140,191,38}
-\definecolor{c4}{RGB}{240,150,9}
-\definecolor{c5}{RGB}{240,230,60}
-\definecolor{c3}{RGB}{230,113,184}
-\definecolor{cwhite}{RGB}{255,255,255}
-
-\begin{frame}{SafeOpt pseudocode}
-\begin{algorithmic}
-  \REQUIRE sample set $D$,\\
-           \hspace{2.1em}kernel $k$,\\
-           \hspace{2.1em}Lipschitz constant $L$,\\
-           \hspace{2.1em}seed set $S_0$,\\
-           \hspace{2.1em}safety threshold $h$
-  %\ENSURE predicted super- and sublevel sets
-  \STATE
-  \FOR{$t = 1,2,\ldots$}
-    \STATE Update \cst, \cgt, and \cmt
-    \LET{$x_t$}{$\argmax_{x \in \ccgt \cup \ccmt}(u_t(x) - \ell_t(x))$}
-    \LET{$y_t$}{$f(x_t) + n_t$}
-    \STATE Update GP estimates
-  \ENDFOR
-\end{algorithmic}
 \end{frame}
 
 \begin{frame}{SafeOpt example ($t = 0$)}
@@ -480,31 +464,62 @@ f(x) - L\,d(x, x') \geq h
   \input{figures/safeopt_50.tex}
 \end{frame}
 
-%\begin{frame}{SafeOpt theorem}
-%Assumptions
-%\vspace{1em}
-%\begin{itemize}
-%  \item $f$ has bounded norm in the RKHS defined by $k$
-%  \vspace{1em}
-%  \item $f$ is $L$-Lipschitz continuous
-%  \vspace{1em}
-%  \item $n_t$ is a uniformly bounded martingale difference sequence
-%\end{itemize}
-%\vspace{2em}
-%Under suitable scaling of the GP confidence intervals, the following jointly hold w.h.p.
-%\vspace{1em}
-%\begin{itemize}
-%  \item $\forall t \geq 1$, $f(x_t) \geq h$
-%  \vspace{1em}
-%  \item $\forall t \geq t^*$, $f(\hat{x}_t) \geq f^*_{\epsilon} - \epsilon$
-%\end{itemize}
-%\end{frame}
+\definecolor{c1}{RGB}{255,255,255}
+\definecolor{c2}{RGB}{27,161,226}
+\definecolor{c6}{RGB}{140,191,38}
+\definecolor{c4}{RGB}{240,150,9}
+\definecolor{c5}{RGB}{240,230,60}
+\definecolor{c3}{RGB}{230,113,184}
+\definecolor{cwhite}{RGB}{255,255,255}
+
+\begin{frame}{SafeOpt pseudocode}
+\begin{algorithmic}
+  \REQUIRE sample set $D$,\\
+           \hspace{2.1em}kernel $k$,\\
+           \hspace{2.1em}Lipschitz constant $L$,\\
+           \hspace{2.1em}seed set $S_0$,\\
+           \hspace{2.1em}safety threshold $h$
+  %\ENSURE predicted super- and sublevel sets
+  \STATE
+  \FOR{$t = 1,2,\ldots$}
+    \STATE Update \cst, \cgt, and \cmt
+    \LET{$x_t$}{$\argmax_{x \in \ccgt \cup \ccmt}(u_t(x) - \ell_t(x))$}
+    \LET{$y_t$}{$f(x_t) + n_t$}
+    \STATE Update GP estimates
+  \ENDFOR
+\end{algorithmic}
+\end{frame}
+
+\begin{frame}{Theorem}
+Assumptions
+\vspace{1em}
+\begin{itemize}
+  \item $f$ has bounded norm in the RKHS defined by $k$
+  \vspace{1em}
+  \item $f$ is $L$-Lipschitz continuous
+  \vspace{1em}
+  \item $n_t$ is a uniformly bounded martingale difference sequence
+\end{itemize}
+\vspace{2em}
+Under suitable scaling of the GP confidence intervals, the following jointly hold w.h.p.
+\vspace{1em}
+\begin{itemize}
+  \item $\forall t \geq 1$, $f(x_t) \geq h$
+  \vspace{1em}
+  \item $\forall t \geq t^*$, $f(\hat{x}_t) \geq f^*_{\epsilon} - \epsilon$
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Experiment 1: Synthetic}
+Show example 2-D synthetic function
+\end{frame}
 
 \begin{frame}{Experiment 1: Synthetic}
 \begin{columns}[c]
 \column{0.55\textwidth}
 \centering
-\setlength\figurewidth{3in}
+$r_t \defeq f^*_{\epsilon} - \max_{\tau \leq t}f(x_{\tau})$\\
+\setlength\figurewidth{2.8in}
 \setlength\figureheight{4.3in}
 \uncover<1->{
 \input{figures/synthetic_regret.tex}
