@@ -25,40 +25,12 @@ table [col sep=comma] {matlab/hp.csv};
 table [col sep=comma] {matlab/ftrue.csv};
 
 \addplot[
-darkgray,
-line width=0.7pt,
-densely dotted
-]
-table [col sep=comma] {matlab/cert1-lip1.csv};
-
-\addplot[
-darkgray,
-line width=0.7pt,
-densely dotted
-]
-table [col sep=comma] {matlab/cert1-lip2.csv};
-
-\addplot[
 lime!50!darkgray,
 only marks,
 mark=*,
 mark size=2.5
 ]
-table [col sep=comma] {matlab/cert1-s0.csv};
-
-\addplot [
-darkgray,
-densely dashed,
-line width=0.5pt,
-]
-coordinates{(4.37,-1.9)(4.37,0)};
-
-\addplot [
-darkgray,
-densely dashed,
-line width=0.5pt,
-]
-coordinates{(5.08,-1.9)(5.08,0)};
+table [col sep=comma] {matlab/cert1-4-f.csv};
 
 \addplot[
 only marks,
@@ -66,7 +38,7 @@ mark=square*,
 magenta!70!black,
 mark size=2
 ]
-table [col sep=comma] {matlab/cert1-st.csv};
+table [col sep=comma] {matlab/cert1-4-st.csv};
 
 \end{axis}
 

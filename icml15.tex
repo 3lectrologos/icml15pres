@@ -62,6 +62,7 @@
 \newcommand{\ccgt}{{\color{lime!70!black}G_t}\xspace}
 \newcommand{\cmt}{{\color{orange!70!black}$M_t$}\xspace}
 \newcommand{\ccmt}{{\color{orange!70!black}M_t}\xspace}
+\newcommand{\crbo}{{\color{magenta!70!black}$\Rbo(S_0)$}\xspace}
 \newcommand{\crbeps}{{\color{magenta!70!black}$\Rbeps(S_0)$}\xspace}
 \newcommand{\ccrbeps}{{\color{magenta!70!black}\Rbeps(S_0)}\xspace}
 
@@ -149,18 +150,49 @@ remain ``safe'' throughout the process.
 \begin{frame}{Problem statement}
 \begin{itemize}
 \item<1-> Finite decision set $D$
-\vspace{2em}
-\item<2-> Unknown reward function $f : D \to \mathbb{R}$
-\vspace{2em}
-\item<3-> Safety threshold $h \in \mathbb{R}$ ($x$ is called safe, if $f(x) \geq h$)
-\vspace{2em}
+\vspace{0.5em}
+\item<1-> Unknown reward function $f : D \to \mathbb{R}$
+\vspace{0.5em}
+\item<2-> Safety threshold $h \in \mathbb{R}$
+\vspace{0.5em}
 \item<4-> Seed set $S_0$ of safe decisions ($\forall x \in S_0,\ f(x) \geq h$)
 \end{itemize}
+
+\only<1>{
+\vspace{1em}
+\centering
+\setlength\figurewidth{4in}
+\setlength\figureheight{2.5in}
+\input{figures/setup_1.tex}
+}
+
+\only<2>{
+\vspace{1em}
+\centering
+\setlength\figurewidth{4in}
+\setlength\figureheight{2.5in}
+\input{figures/setup_2.tex}
+}
+
+\only<3>{
+\vspace{1em}
+\centering
+\setlength\figurewidth{4in}
+\setlength\figureheight{2.5in}
+\input{figures/setup_3.tex}
+}
+
+\only<4>{
+\vspace{1em}
+\centering
+\setlength\figurewidth{4in}
+\setlength\figureheight{2.5in}
+\input{figures/setup_4.tex}
+}
 \end{frame}
 
 \begin{frame}{Problem statement}
 
-\uncover<1->{
 Sequential sampling
 \vspace{0.5em}
 \begin{itemize}
@@ -172,8 +204,18 @@ Sequential sampling
     \item observe $f(x_t) + n_t$
   \end{itemize}
 \end{itemize}
-}
-\uncover<2->{
+
+\invisible<-1>{
+\alt<3>{
+\vspace{3em}
+Goal
+\vspace{0.5em}
+\begin{itemize}
+\item Find $x^* \in \argmax_{x\in D}f(x)$
+\vspace{0.5em}
+\item \fcolorbox{blue}{blue!40!white}{\makebox{Remain safe: $\forall t \geq 1,\ f(x_t) \geq h$}}
+\end{itemize}
+}{
 \vspace{3em}
 Goal
 \vspace{0.5em}
@@ -182,7 +224,7 @@ Goal
 \vspace{0.5em}
 \item Remain safe: $\forall t \geq 1,\ f(x_t) \geq h$
 \end{itemize}
-}
+}}
 \end{frame}
 
 \begin{frame}{Previous work}
@@ -233,9 +275,13 @@ Goal
 \begin{frame}{GP-UCB}
 \begin{itemize}
 \item<1-> Use upper confidence bounds for optimistic sampling
-\vspace{2em}
-\item<2-> $x_t = \argmax_{x \in D}u_t(x)$
-\vspace{2em}
+\vspace{1em}
+\item<2-> $x_t = \argmax_{x \in D}u_t(x)$\\[1em]
+  \centering
+  \setlength\figurewidth{4in}
+  \setlength\figureheight{2.5in}
+  \input{figures/gp_3f_small.tex}
+\vspace{0.5em}
 \item<3-> Sublinear regret under suitable conditions on $f$ [Srinivas et al., ICML 2010]
 \end{itemize}
 \end{frame}
@@ -304,6 +350,55 @@ f(x) - L\,d(x, x') \geq h
 \centering
 \setlength\figurewidth{5in}
 \setlength\figureheight{3.5in}
+\input{figures/cert_1_3_1.tex}
+\end{frame}
+
+\begin{frame}{Certifying safety}
+\centering
+\setlength\figurewidth{5in}
+\setlength\figureheight{3.5in}
+\input{figures/cert_1_3_2.tex}
+\end{frame}
+
+\begin{frame}{Certifying safety}
+\centering
+\setlength\figurewidth{5in}
+\setlength\figureheight{3.5in}
+\input{figures/cert_1_4_1.tex}
+\end{frame}
+
+\begin{frame}{Certifying safety}
+\centering
+\setlength\figurewidth{5in}
+\setlength\figureheight{3.5in}
+\input{figures/cert_1_4_2.tex}
+\end{frame}
+
+\begin{frame}{Certifying safety}
+\centering
+\setlength\figurewidth{5in}
+\setlength\figureheight{3.5in}
+\input{figures/cert_1_5_1.tex}
+\end{frame}
+
+\begin{frame}{Certifying safety}
+\centering
+\setlength\figurewidth{5in}
+\setlength\figureheight{3.5in}
+\input{figures/cert_1_5_2.tex}
+\end{frame}
+
+\begin{frame}{Certifying safety}
+\centering
+\setlength\figurewidth{5in}
+\setlength\figureheight{3.5in}
+\input{figures/cert_1_6.tex}
+\end{frame}
+
+\begin{frame}{Certifying safety}
+\centering
+\setlength\figurewidth{5in}
+\setlength\figureheight{3.5in}
 \input{figures/cert_2_0.tex}
 \end{frame}
 
@@ -344,12 +439,13 @@ f(x) - L\,d(x, x') \geq h
 
 \begin{frame}{Reconsidering optimization}
 \begin{itemize}
-\item<1-> Goal of finding $f^* = \max_{x \in D}\left(f(x)\right)$ is unrealistic
+\item<1-> Initial goal of finding $f^* = \max_{x \in D}\left(f(x)\right)$ is unrealistic
 \vspace{2em}
 \item<2-> Instead, aim for the $\epsilon$-reachable maximum
 \begin{align*}
   f_{\epsilon}^* = \max_{x \in \ccrbeps}\left(f(x)\right)
 \end{align*}
+\item<3-> Smaller $\epsilon$ $\ \rightarrow\ $ stricter goal $\ \rightarrow\ $ need more samples
 \end{itemize}
 \end{frame}
 

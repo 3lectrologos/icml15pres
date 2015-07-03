@@ -17,6 +17,10 @@ h = 0;
 s0 = 70;
 hp = h * ones(length(x), 1);
 csvwrite('ftrue.csv', [x f]);
+xsafe = x(f > h);
+xunsafe = x(f <= h);
+csvwrite('fsafe.csv', [xsafe, -1.88*ones(length(xsafe), 1)]);
+csvwrite('funsafe.csv', [xunsafe, -1.88*ones(length(xunsafe), 1)]);
 csvwrite('hp.csv', [x hp]);
 csvwrite('s0.csv', [x(s0) f(s0)]);
 
@@ -32,8 +36,29 @@ l2 = f(s0) + L*(x - x(s0));
 csvwrite('cert1-s0.csv', [x(s0) f(s0)]);
 csvwrite('cert1-lip1.csv', [x, l1]);
 csvwrite('cert1-lip2.csv', [x, l2]);
-xst = x(l1 >=0 & l2 >= 0);
+st = find(l1 >=0 & l2 >= 0);
+xst = x(st);
 csvwrite('cert1-st.csv', [xst, -1.88*ones(length(xst), 1)]);
+
+for k = 3:5
+  prefix = ['cert1-', num2str(k)];
+  csvwrite([prefix, '-f.csv'], [x(st) f(st)]);
+  newst = st;
+  for i = 1:length(st)
+    zi = st(i);
+    cert = find(f(zi) - L*abs(x - x(zi)) >= h);
+    newst = union(newst, cert);
+  end
+  st = newst;
+  xst = x(st);
+  csvwrite([prefix, '-st.csv'], [xst, -1.88*ones(length(xst), 1)]);
+end
+
+prefix = 'cert1-6';
+st = 50:138;
+csvwrite([prefix, '-f.csv'], [x(st) f(st)]);
+xst = x(st);
+csvwrite([prefix, '-st.csv'], [xst, -1.88*ones(length(xst), 1)]);
 
 s0 = 95;
 L = lip(x, f);
