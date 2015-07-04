@@ -29,6 +29,7 @@
 \newlength\figureheight
 \newlength\figurewidth
 
+% presentation stuff
 \newcommand{\sig}[2]{%
 \begin{tabular}{r}
 #1\\[-0.7em]
@@ -36,6 +37,8 @@
 \end{tabular}}
 
 \newcommand{\qauth}[1]{{\footnotesize\par\normalfont\hfill---\ \emph{#1}\par}}
+
+\newcommand{\qcite}[1]{{\small\color{gray}[#1]}}
 
 % math stuff
 \newcommand{\defeq}{\vcentcolon=}
@@ -227,7 +230,28 @@ Goal
 }}
 \end{frame}
 
-\begin{frame}{Previous work}
+\begin{frame}{Related work}
+\begin{itemize}
+  \item<1-> Bayesian optimization: function evaluation is expensive
+  \vspace{2em}
+  \item<2-> Various proposed criteria, e.g.,
+    \vspace{0.5em}
+    \begin{itemize}
+      \item Expected improvement \qcite{Mockus et al., 1974}
+      \vspace{0.5em}
+      \item UCB \qcite{Auer, 2002} \qcite{Srinivas et al., 2010}
+    \end{itemize}
+  \vspace{2em}
+  \item<3-> Related variants
+    \vspace{0.5em}
+    \begin{itemize}
+      \item Level set estimation \qcite{Gotovos et al., 2013}
+      \vspace{0.5em}
+      \item Bayesian optimization with constraints \qcite{Gardner et al., 2014}
+    \end{itemize}
+  \vspace{2em}
+  \item<4-> Gaussian processes popular for modeling the unknown function
+\end{itemize}
 \end{frame}
 
 \begin{frame}{Gaussian process regression}
@@ -282,7 +306,7 @@ Goal
   \setlength\figureheight{2.5in}
   \input{figures/gp_3f_small.tex}
 \vspace{0.5em}
-\item<3-> Sublinear regret under suitable conditions on $f$ [Srinivas et al., ICML 2010]
+\item<3-> Sublinear regret under suitable conditions on $f$ \qcite{Srinivas et al., 2010}
 \end{itemize}
 \end{frame}
 
@@ -607,7 +631,18 @@ Under suitable scaling of the GP confidence intervals, the following jointly hol
 \end{frame}
 
 \begin{frame}{Experiment 1: Synthetic}
-Show example 2-D synthetic function
+\centering
+\setlength\figurewidth{4.5in}
+\setlength\figureheight{5in}
+\input{figures/synthetic_surface.tex}
+\vspace{1em}
+\begin{itemize}
+\item Draw 100 random 2-D functions from GP prior (sq. exponential kernel)
+\vspace{1em}
+\item Use random singleton seed set $S_0$ per function
+\vspace{1em}
+\item Run 100 iterations of each algorithm
+\end{itemize}
 \end{frame}
 
 \begin{frame}{Experiment 1: Synthetic}
@@ -642,7 +677,9 @@ $r_t \defeq f^*_{\epsilon} - \max_{\tau \leq t}f(x_{\tau})$\\
 \begin{itemize}
 \item Electrode configurations are represented by points in $\mathbb{R}^4$
 \vspace{1em}
-\item Data from 351 stimulations (126 distinct configurations)
+\item Fit sq. exponential ARD kernel
+\vspace{1em}
+\item Run 300 iterations of each algorithm
 \end{itemize}
 \end{center}
 \end{columns}
@@ -672,14 +709,27 @@ $r_t \defeq f^*_{\epsilon} - \max_{\tau \leq t}f(x_{\tau})$\\
 \end{frame}
 
 \begin{frame}{Conclusion}
-
-{\large Come to our poster for more details!}
+\uncover<1->{
+Recap
+\vspace{0.5em}
+\begin{itemize}
+\item We formulated safe optimization using the concept of reachability
+\vspace{0.5em}
+\item We proposed SafeOpt, an algorithm with theoretical guarantees
+\end{itemize}
+}
+\uncover<2->{
 \vspace{2em}
+What we skipped here
+\vspace{0.5em}
 \begin{itemize}
   \item Rigorous theoretical setup and analysis
-  \vspace{1em}
+  \vspace{0.5em}
   \item Another application: safe movie recommendation
 \end{itemize}
+\centering
+\includegraphics[width=3.5in]{figures/netflix.png}
+}
 \end{frame}
 
 \end{document}

@@ -1,0 +1,22 @@
+\begin{tikzpicture}
+
+\begin{axis}[%
+tick label style={font=\small},
+label style={font=\small},
+view={50}{30},
+width=\figurewidth,
+height=\figureheight/2,
+zmin=-3, zmax=3,
+xticklabels={,,},
+yticklabels={,,},
+zticklabels={,,},
+grid=major,
+colormap/pastel,
+major tick length=0pt
+]
+
+\addplot3[surf] file {figures/synthetic_surface.dat};
+
+\end{axis}
+
+\end{tikzpicture}
