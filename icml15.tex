@@ -1,4 +1,4 @@
-\documentclass[xetex,10pt,mathserif,handout]{beamer}
+\documentclass[xetex,10pt,mathserif]{beamer}
 
 \usetheme{Boadilla}
 \usecolortheme{seahorse}
@@ -463,11 +463,11 @@ f(x) - L\,d(x, x') \geq h
 
 \begin{frame}{Reconsidering optimization}
 \begin{itemize}
-\item<1-> Initial goal of finding $f^* = \max_{x \in D}\left(f(x)\right)$ is unrealistic
+\item<1-> Initial goal of finding $f^* = \max_{x \in D}f(x)$ is unrealistic
 \vspace{2em}
 \item<2-> Instead, aim for the $\epsilon$-reachable maximum
 \begin{align*}
-  f_{\epsilon}^* = \max_{x \in \ccrbeps}\left(f(x)\right)
+  f_{\epsilon}^* = \max_{x \in \ccrbeps}f(x)
 \end{align*}
 \item<3-> Smaller $\epsilon$ $\ \rightarrow\ $ stricter goal $\ \rightarrow\ $ need more samples
 \end{itemize}
@@ -479,7 +479,7 @@ f(x) - L\,d(x, x') \geq h
   \vspace{2em}
   \item<2-> Use Lipschitz property with GP lower bounds to certify safety
   \vspace{2em}
-  \item<3-> $x_t = \argmax_{x \in \ccst} \left( u_t(x) \right)$
+  \item<3-> $x_t = \argmax_{x \in \ccst}u_t(x)$
 \end{itemize}
 \end{frame}
 
@@ -611,6 +611,7 @@ f(x) - L\,d(x, x') \geq h
 \end{frame}
 
 \begin{frame}{Theorem}
+\uncover<1->{
 Assumptions
 \vspace{1em}
 \begin{itemize}
@@ -620,6 +621,8 @@ Assumptions
   \vspace{1em}
   \item $n_t$ is a uniformly bounded martingale difference sequence
 \end{itemize}
+}
+\uncover<2->{
 \vspace{2em}
 Under suitable scaling of the GP confidence intervals, the following jointly hold w.h.p.
 \vspace{1em}
@@ -628,6 +631,7 @@ Under suitable scaling of the GP confidence intervals, the following jointly hol
   \vspace{1em}
   \item $\forall t \geq t^*$, $f(\hat{x}_t) \geq f^*_{\epsilon} - \epsilon$
 \end{itemize}
+}
 \end{frame}
 
 \begin{frame}{Experiment 1: Synthetic}
